@@ -40,17 +40,23 @@ async function fetchArtistsFromSpotify() {
 }
 
 // Index - GET - /artists
-router.get("/artists", async (req, res) => {
-  try {
-    // Fetch artists from Spotify
-    const artists = await fetchArtistsFromSpotify();
-    // Send the response
-    res.json(artists);
-  } catch (error) {
+router.get("/artist/:id", async (req, res)=> {
+  try{
+    let artistParameters = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }
+
+    let artist = fetch(`https://api.spotify.com/v1/artists/${req.params.id}`, artistParameters)
+    .then(res => res.json(artist))
+  }catch (error) {
     // Handle error
-    res.status(500).json({ error: "Failed to fetch artists from Spotify" });
+    res.status(500).json({ error: "Failed to fetch artist from Spotify" });
   }
-});
+})
 
 // Create - POST - /artists
 

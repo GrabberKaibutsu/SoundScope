@@ -15,19 +15,23 @@ liveReloadServer.server.once("connection", () => {
     liveReloadServer.refresh("/");
   }, 100);
 });
+
 // Middleware
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('dev')); // Logging HTTP requests
+
 // Import routes from the musicdbController
-const musicdbRoutes = require('./musicdbController');
+const musicdbRoutes = require('./controllers/musicController');
 app.use('/api', musicdbRoutes);
+
 // Basic route for homepage
 app.get('/', (req, res) => {
     res.send('Welcome to MusicDB!');
 });
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

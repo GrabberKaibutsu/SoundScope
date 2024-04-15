@@ -10,6 +10,21 @@ const db = require("../models");
 const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 const token = "Your_Spotify_Access_Token";
 
+let authParameters = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+}
+
+fetch('https://accounts.spotify.com/api/token', authParameters)
+.then(result => result.json())
+.then(data=> 
+  // console.log(data)
+  token = data.access_token
+)
+
 // Function to fetch album data from Spotify API
 async function fetchAlbumsFromSpotify() {
   // Define the endpoint URL
@@ -56,6 +71,24 @@ router.get("/albums", async (req, res) => {
 // Create - POST - /albums
 
 // Show - GET - /albums/:id
+router.get("/album/:id", async (req, res)=> {
+  try{
+    let albumParameters = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }
+
+    let artist = fetch(`https://api.spotify.com/v1/albums/${req.params.id}`, albumParameters)
+    .then(response => response.json())
+    .then(data => console.log(data))
+  }catch (error) {
+    // Handle error
+    res.status(500).json({ error: "Failed to fetch album from Spotify" });
+  }
+})
 
 // Update - PUT - /albums/:id
 
