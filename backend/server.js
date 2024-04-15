@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('dev')); // Logging HTTP requests
 // Import routes from the musicdbController
-const musicdbRoutes = require('./musicdbController');
+const musicdbRoutes = require('./musicController');
 app.use('/api', musicdbRoutes);
 // Basic route for homepage
 app.get('/', (req, res) => {
