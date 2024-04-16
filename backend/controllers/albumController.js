@@ -1,14 +1,16 @@
 // Require modules
 const express = require("express");
 const router = express.Router();
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 const Album = require("../models/album");
 
 // Require DB connection
-const db = require("../models");
+// const db = require("../models");
 
-const spotifyAPIBaseURL = "https://api.spotify.com/v1";
-const token = "Your_Spotify_Access_Token";
+const CLIENT_ID = '7f10ea269e484349aa919106e164e402'
+const CLIENT_SECRET = '9eb2ad377152414b80bbb52ba4fd616b'
+
+let token = "Your_Spotify_Access_Token";
 
 let authParameters = {
   method: 'POST',
@@ -25,13 +27,14 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
   token = data.access_token
 )
 
-// Function to fetch album data from Spotify API
-async function fetchAlbumsFromSpotify() {
-  // Define the endpoint URL
-  const endpoint = `${spotifyAPIBaseURL}/search?q=album&type=album&limit=20`;
+async function fetchAlbums(){
+
+  const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=20"
+
   try {
+
     // Fetch data from Spotify API
-    const response = await fetch(endpoint, {
+    const albumsResponse = await fetch(endpoint, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -40,14 +43,47 @@ async function fetchAlbumsFromSpotify() {
     });
 
     // If the response is not OK, throw an error
-    if (!response.ok) {
-      throw new Error(`Spotify API request failed: ${response.statusText}`);
+    if (!albumsResponse.ok) {
+      throw new Error(`Spotify API request failed: ${albumsResponse.statusText}`);
     }
 
     // Parse the response body as JSON
-    const data = await response.json();
-    // Return the albums array
+    const data = await albumsResponse.json();
+    // Return the artists array
     return data.albums.items;
+
+  } catch (error) {
+    // Log error and throw it up the chain
+    console.error("Error fetching albums from Spotify:", error);
+    throw error;
+  }
+}
+
+async function fetchAlbum(albumID){
+
+  const endpoint = `https://api.spotify.com/v1/albums/${albumID}`
+
+  try {
+
+    // Fetch data from Spotify API
+    const albumResponse = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    // If the albumResponse is not OK, throw an error
+    if (!albumResponse.ok) {
+      throw new Error(`Spotify API request failed: ${albumResponse.statusText}`);
+    }
+
+    // Parse the albumResponse body as JSON
+    const data = await albumResponse.json();
+    // Return the artists array
+    return data;
+
   } catch (error) {
     // Log error and throw it up the chain
     console.error("Error fetching albums from Spotify:", error);
@@ -56,42 +92,33 @@ async function fetchAlbumsFromSpotify() {
 }
 
 // Index - GET - /albums
-router.get("/albums", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
+    
     // Fetch albums from Spotify
-    const albums = await fetchAlbumsFromSpotify();
+    const albums = await fetchAlbums();
     // Send the response
-    res.json(albums);
+    res.send(albums);
+
   } catch (error) {
     // Handle error
     res.status(500).json({ error: "Failed to fetch albums from Spotify" });
   }
 });
 
-// Create - POST - /albums
-
 // Show - GET - /albums/:id
-router.get("/album/:id", async (req, res)=> {
+router.get("/:id", async (req, res)=> {
   try{
-    let albumParameters = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    }
+    
+    // Fetch albums from Spotify
+    const album = await fetchAlbum(req.params.id);
+    // Send the response
+    res.send(album);
 
-    let artist = fetch(`https://api.spotify.com/v1/albums/${req.params.id}`, albumParameters)
-    .then(response => response.json())
-    .then(data => console.log(data))
   }catch (error) {
     // Handle error
     res.status(500).json({ error: "Failed to fetch album from Spotify" });
   }
 })
-
-// Update - PUT - /albums/:id
-
-// Delete - DELETE - /albums/:id
 
 module.exports = router;

@@ -9,10 +9,25 @@ const db = require("../models");
 const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 const token = "Your_Spotify_Access_Token";
 
+let authParameters = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+}
+
+fetch('https://accounts.spotify.com/api/token', authParameters)
+.then(result => result.json())
+.then(data=> 
+  // console.log(data)
+  token = data.access_token
+)
+
 // Function to fetch artist data from Spotify API
 async function fetchArtistsFromSpotify() {
   // Define the endpoint URL
-  const endpoint = `${spotifyAPIBaseURL}/search?q=artist&type=artist&limit=20`;
+  const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&limit=20`;
   try {
     // Fetch data from Spotify API
     const response = await fetch(endpoint, {
@@ -40,23 +55,17 @@ async function fetchArtistsFromSpotify() {
 }
 
 // Index - GET - /artists
-router.get("/artist/:id", async (req, res)=> {
-  try{
-    let artistParameters = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    }
-
-    let artist = fetch(`https://api.spotify.com/v1/artists/${req.params.id}`, artistParameters)
-    .then(res => res.json(artist))
-  }catch (error) {
+router.get("/artists", async (req, res) => {
+  try {
+    // Fetch artists from Spotify
+    const artists = await fetchArtistsFromSpotify();
+    // Send the response
+    res.json(artists);
+  } catch (error) {
     // Handle error
-    res.status(500).json({ error: "Failed to fetch artist from Spotify" });
+    res.status(500).json({ error: "Failed to fetch artists from Spotify" });
   }
-})
+});
 
 // Create - POST - /artists
 

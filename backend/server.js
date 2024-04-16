@@ -16,6 +16,7 @@ liveReloadServer.server.once("connection", () => {
   }, 100);
 });
 
+
 // Middleware
 app.use(cors());
 app.use(express.static("public"));
@@ -25,7 +26,10 @@ app.use(morgan('dev')); // Logging HTTP requests
 
 // Import routes from the musicdbController
 const musicdbRoutes = require('./controllers/musicController');
+const albumRoutes = require('./controllers/albumController');
+
 app.use('/api', musicdbRoutes);
+app.use('/albums', albumRoutes)
 
 // Basic route for homepage
 app.get('/', (req, res) => {
