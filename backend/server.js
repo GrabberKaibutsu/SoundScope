@@ -10,8 +10,12 @@ const cors = require("cors");
 const app = express();
 
 const PORT = process.env.PORT || 3001;
+
 const db = require("./models")
+
 const liveReloadServer = livereload.createServer();
+
+const artistController = require("./controllers/artistController");
 
 liveReloadServer.watch(path.join(__dirname, "../public"));
 
@@ -31,11 +35,14 @@ app.use(express.json());
 app.use(morgan('dev')); // Logging HTTP requests
 
 // Import routes from the musicdbController
+
 const musicdbRoutes = require('./controllers/musicController');
 const albumRoutes = require('./controllers/albumController');
 
+app.use("/artists", artistController);
 app.use('/api', musicdbRoutes);
 app.use('/albums', albumRoutes)
+
 
 
 // Basic route for homepage
