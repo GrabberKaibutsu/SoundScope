@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user'); //Correct path?
 const router = express.Router();
+
 // Register a new user
 router.post('/register', async (req, res) => {
   try {
@@ -19,6 +20,7 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 // User login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;

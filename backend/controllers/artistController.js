@@ -12,7 +12,7 @@ const token = "Your_Spotify_Access_Token";
 // Function to fetch artist data from Spotify API
 async function fetchArtistsFromSpotify() {
   // Define the endpoint URL
-  const endpoint = `${spotifyAPIBaseURL}/search?q=artist&type=artist&limit=20`;
+  const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&limit=20`;
   try {
     // Fetch data from Spotify API
     const response = await fetch(endpoint, {
