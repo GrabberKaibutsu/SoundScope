@@ -10,8 +10,7 @@ const cors = require("cors");
 const app = express();
 
 const PORT = process.env.PORT || 3001;
-
-const db = require("./models")
+const db = require("./models");
 
 const liveReloadServer = livereload.createServer();
 
@@ -44,6 +43,10 @@ app.use('/api', musicdbRoutes);
 app.use('/albums', albumRoutes)
 
 
+
+// Import routes from the reviewController
+const reviewRoutes = require('./controllers/reviewController');
+app.use('/api/reviews', reviewRoutes);
 
 // Basic route for homepage
 app.get("/", (req, res) => {
