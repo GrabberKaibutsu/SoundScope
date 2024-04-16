@@ -3,12 +3,15 @@ const express = require("express");
 const router = express.Router();
 // const fetch = require("node-fetch");
 const Album = require("../models/album");
+require('dotenv').config()
 
 // Require DB connection
 // const db = require("../models");
 
-const CLIENT_ID = '7f10ea269e484349aa919106e164e402'
-const CLIENT_SECRET = '9eb2ad377152414b80bbb52ba4fd616b'
+process.env.MONGODBURI
+
+const CLIENT_ID = process.env.Client_ID
+const CLIENT_SECRET = process.env.Client_Secret
 
 let token = "Your_Spotify_Access_Token";
 

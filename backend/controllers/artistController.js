@@ -9,21 +9,6 @@ const db = require("../models");
 const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 const token = "Your_Spotify_Access_Token";
 
-let authParameters = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
-}
-
-fetch('https://accounts.spotify.com/api/token', authParameters)
-.then(result => result.json())
-.then(data=> 
-  // console.log(data)
-  token = data.access_token
-)
-
 // Function to fetch artist data from Spotify API
 async function fetchArtistsFromSpotify() {
   // Define the endpoint URL
