@@ -7,6 +7,7 @@ const db = require("../models");
 
 const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 
+// Function to fetch data from Spotify API - In place of node fetch - Had an error with node-fetch and used the following code to replace it based on internet search
 async function fetch(url, options) {
   const { default: fetch } = await import("node-fetch");
   return fetch(url, options);
