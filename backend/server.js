@@ -10,7 +10,7 @@ const cors = require("cors");
 const app = express();
 
 const PORT = process.env.PORT || 3001;
-
+const db = require("./models")
 const liveReloadServer = livereload.createServer();
 
 liveReloadServer.watch(path.join(__dirname, "../public"));
