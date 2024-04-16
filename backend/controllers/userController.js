@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user'); //Correct path?
 const router = express.Router();
+
 // Register a new user
 router.post('/register', async (req, res) => {
   try {
@@ -19,6 +20,7 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 // User login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -37,5 +39,28 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+
+// Logout route
+router.post('/logout', (req, res) => {
+    try {
+      if (req.session.user) {
+        // If user is logged in, destroy the session
+        req.session.destroy(err => {
+          if (err) {
+            return res.status(500).json({ message: "Logout failed" });
+          }
+          res.clearCookie('sessionID'); // Clear session cookie
+          res.json({ message: "Logged out successfully" });
+        });
+      } else {
+        res.status(401).json({ message: "You are not logged in" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
+  
 
 module.exports = router;

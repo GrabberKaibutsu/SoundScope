@@ -15,8 +15,9 @@ db.on("error", (err) => {
 });
 
 module.exports = {
-  User: require("../models/user"),
-  Review: require("../models/review"),
-  Album: require("../models/album"),
-  Artist: require("../models/artist"),
+  User: require("./user"),
+  Review: require("./review"),
+  Album: require("./album"),
+  Artist: require("./artist"),
 };
+

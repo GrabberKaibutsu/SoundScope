@@ -51,10 +51,12 @@ async function getSpotifyAccessToken() {
 
 // Function to fetch artist data from Spotify API
 async function fetchArtistsFromSpotify() {
+
   // Get Spotify access token using the getSpotifyAccessToken function
   const token = await getSpotifyAccessToken();
   // Get Spotify API base URL and define the endpoint for the search query
   const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&market=US&limit=20`;
+
   try {
     // Fetch data from Spotify API
     const response = await fetch(endpoint, {
