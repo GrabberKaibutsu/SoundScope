@@ -14,8 +14,12 @@ const db = require("./models");
 
 const liveReloadServer = livereload.createServer();
 
+//Import routes from the controllers
 const artistController = require("./controllers/artistController");
-
+const musicdbRoutes = require('./controllers/musicController');
+const albumRoutes = require('./controllers/albumController');
+const reviewRoutes = require('./controllers/reviewController');
+const searchRoutes = require('./controllers/searchController');
 liveReloadServer.watch(path.join(__dirname, "../public"));
 
 app.use(connectLiveReload());
@@ -33,20 +37,12 @@ app.use(express.json());
 
 app.use(morgan('dev')); // Logging HTTP requests
 
-// Import routes from the musicdbController
-
-const musicdbRoutes = require('./controllers/musicController');
-const albumRoutes = require('./controllers/albumController');
-
+//use route controllers
 app.use("/artists", artistController);
 app.use('/api', musicdbRoutes);
 app.use('/albums', albumRoutes)
-
-
-
-// Import routes from the reviewController
-const reviewRoutes = require('./controllers/reviewController');
 app.use('/api/reviews', reviewRoutes);
+app.use('/search', searchRoutes);
 
 // Basic route for homepage
 app.get("/", (req, res) => {
