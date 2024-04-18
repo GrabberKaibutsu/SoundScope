@@ -26,14 +26,14 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 )
 // - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
 
-async function searchSpotify(searchTerm){
+async function getList(){
 
-    const endpoint = `https://api.spotify.com/v1/search?q=${searchTerm}&type=artist,album,track&market=US&limit=20`
+    const endpoint = `https://api.spotify.com/v1/search?q=year%3A2024&type=artist,album,track&market=US&limit=9`
   
     try {
   
       // Fetch data from Spotify API
-      const searchResponse = await fetch(endpoint, {
+      const homeResponse = await fetch(endpoint, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,29 +42,29 @@ async function searchSpotify(searchTerm){
       });
   
       // If the response is not OK, throw an error
-      if (!searchResponse.ok) {
-        throw new Error(`Spotify API request failed: ${searchResponse.statusText}`);
+      if (!homeResponse.ok) {
+        throw new Error(`Spotify API request failed: ${homeResponse.statusText}`);
       }
   
       // Parse the response body as JSON
-      const data = await searchResponse.json();
+      const data = await homeResponse.json();
       // Return the array
       return data
   
     } catch (error) {
       // Log error and throw it up the chain
-      console.error("Error fetching search data from Spotify:", error);
+      console.error("Error fetching home data from Spotify:", error);
       throw error;
     }
   }
 
-  router.get("/:term", async (req, res)=> {
+  router.get("/", async (req, res)=> {
     try{
       
       // Fetch data from Spotify with term
-      const search = await searchSpotify(req.params.term);
+      const homeData = await getList();
       // Send the response
-      res.json(search);
+      res.send(homeData);
   
     }catch (error) {
       // Handle error

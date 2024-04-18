@@ -23,6 +23,7 @@ const reviewRoutes = require('./controllers/reviewController');
 const searchRoutes = require('./controllers/searchController');
 const genreRoutes = require('./controllers/genreController');
 const userRouter = require('./controllers/userController');
+const homeRouter = require('./controllers/homeController');
 
 liveReloadServer.watch(path.join(__dirname, "../public"));
 
@@ -38,11 +39,11 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(session({ // Use express-session middleware
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
+// app.use(session({ // Use express-session middleware
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitialized: false
+// }));
 
 app.use(morgan('dev')); 
 
@@ -54,6 +55,7 @@ app.use('/reviews', reviewRoutes);
 app.use('/search', searchRoutes);
 app.use('/genre', genreRoutes);
 app.use('/users', userRouter);
+app.use('/home', homeRouter);
 
 // Basic route for homepage
 app.get("/", (req, res) => {
