@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const session = require("express-session");
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
 const morgan = require("morgan");
@@ -22,7 +23,7 @@ const albumRoutes = require('./controllers/albumController');
 const reviewRoutes = require('./controllers/reviewController');
 const searchRoutes = require('./controllers/searchController');
 const genreRoutes = require('./controllers/genreController');
-
+const userRouter = require('./controllers/userController');
 
 liveReloadServer.watch(path.join(__dirname, "../public"));
 
@@ -38,7 +39,11 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(session({ // Use express-session middleware
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use(morgan('dev')); 
 
@@ -49,6 +54,7 @@ app.use('/albums', albumRoutes)
 app.use('/api/reviews', reviewRoutes);
 app.use('/search', searchRoutes);
 app.use('/genre', genreRoutes);
+app.use('/users', userRouter);
 
 // Basic route for homepage
 app.get("/", (req, res) => {
