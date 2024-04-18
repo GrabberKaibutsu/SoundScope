@@ -20,6 +20,8 @@ const musicdbRoutes = require('./controllers/musicController');
 const albumRoutes = require('./controllers/albumController');
 const reviewRoutes = require('./controllers/reviewController');
 const searchRoutes = require('./controllers/searchController');
+const genreRoutes = require('./controllers/genreController');
+
 liveReloadServer.watch(path.join(__dirname, "../public"));
 
 app.use(connectLiveReload());
@@ -43,6 +45,7 @@ app.use('/api', musicdbRoutes);
 app.use('/albums', albumRoutes)
 app.use('/api/reviews', reviewRoutes);
 app.use('/search', searchRoutes);
+app.use('/genre', genreRoutes);
 
 // Basic route for homepage
 app.get("/", (req, res) => {

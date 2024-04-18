@@ -26,14 +26,14 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 )
 // - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
 
-async function searchSpotify(searchTerm){
+async function getGenres(){
 
-    const endpoint = `https://api.spotify.com/v1/search?q=${searchTerm}&type=artist,album,track&market=US&limit=20`
+    const endpoint = `https://api.spotify.com/v1/recommendations/available-genre-seeds`
   
     try {
   
       // Fetch data from Spotify API
-      const searchResponse = await fetch(endpoint, {
+      const genreResponse = await fetch(endpoint, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,29 +42,29 @@ async function searchSpotify(searchTerm){
       });
   
       // If the response is not OK, throw an error
-      if (!searchResponse.ok) {
-        throw new Error(`Spotify API request failed: ${searchResponse.statusText}`);
+      if (!genreResponse.ok) {
+        throw new Error(`Spotify API request failed: ${genreResponse.statusText}`);
       }
   
       // Parse the response body as JSON
-      const data = await searchResponse.json();
+      const data = await genreResponse.json();
       // Return the artists array
-      return data
+      return data.genres
   
     } catch (error) {
       // Log error and throw it up the chain
-      console.error("Error fetching search data from Spotify:", error);
+      console.error("Error fetching genres from Spotify:", error);
       throw error;
     }
   }
 
-  router.get("/:term", async (req, res)=> {
+  router.get("/", async (req, res)=> {
     try{
       
-      // Fetch data from Spotify with term
-      const search = await searchSpotify(req.params.term);
+      // Fetch genres from Spotify with
+      const genres = await getGenres();
       // Send the response
-      res.json(search);
+      res.json(genres);
   
     }catch (error) {
       // Handle error
