@@ -37,13 +37,12 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(morgan('dev')); // Logging HTTP requests
+app.use(morgan("dev"));
 
-//use route controllers
 app.use("/artists", artistController);
 app.use('/api', musicdbRoutes);
 app.use('/albums', albumRoutes)
-app.use('/api/reviews', reviewRoutes);
+app.use('/reviews', reviewRoutes);
 app.use('/search', searchRoutes);
 app.use('/genre', genreRoutes);
 
