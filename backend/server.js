@@ -17,7 +17,6 @@ const liveReloadServer = livereload.createServer();
 
 //Import routes from the controllers
 const artistController = require("./controllers/artistController");
-
 const musicdbRoutes = require('./controllers/musicController');
 const albumRoutes = require('./controllers/albumController');
 const reviewRoutes = require('./controllers/reviewController');
@@ -51,7 +50,7 @@ app.use(morgan('dev'));
 app.use("/artists", artistController);
 app.use('/api', musicdbRoutes);
 app.use('/albums', albumRoutes)
-app.use('/api/reviews', reviewRoutes);
+app.use('/reviews', reviewRoutes);
 app.use('/search', searchRoutes);
 app.use('/genre', genreRoutes);
 app.use('/users', userRouter);
