@@ -1,22 +1,43 @@
 // Require modules
 const express = require("express");
 const router = express.Router();
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 const Album = require("../models/album");
+require('dotenv').config()
 
 // Require DB connection
-const db = require("../models");
+// const db = require("../models");
 
-const spotifyAPIBaseURL = "https://api.spotify.com/v1";
-const token = "Your_Spotify_Access_Token";
+process.env.MONGODBURI
 
-// Function to fetch album data from Spotify API
-async function fetchAlbumsFromSpotify() {
-  // Define the endpoint URL
-  const endpoint = `${spotifyAPIBaseURL}/search?q=album&type=album&limit=20`;
+const CLIENT_ID = process.env.Client_ID
+const CLIENT_SECRET = process.env.Client_Secret
+
+let token = "Your_Spotify_Access_Token";
+
+let authParameters = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+}
+
+fetch('https://accounts.spotify.com/api/token', authParameters)
+.then(result => result.json())
+.then(data=> 
+  // console.log(data)
+  token = data.access_token
+)
+
+async function fetchAlbums(){
+
+  const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=20"
+
   try {
+
     // Fetch data from Spotify API
-    const response = await fetch(endpoint, {
+    const albumsResponse = await fetch(endpoint, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -25,14 +46,47 @@ async function fetchAlbumsFromSpotify() {
     });
 
     // If the response is not OK, throw an error
-    if (!response.ok) {
-      throw new Error(`Spotify API request failed: ${response.statusText}`);
+    if (!albumsResponse.ok) {
+      throw new Error(`Spotify API request failed: ${albumsResponse.statusText}`);
     }
 
     // Parse the response body as JSON
-    const data = await response.json();
-    // Return the albums array
+    const data = await albumsResponse.json();
+    // Return the artists array
     return data.albums.items;
+
+  } catch (error) {
+    // Log error and throw it up the chain
+    console.error("Error fetching albums from Spotify:", error);
+    throw error;
+  }
+}
+
+async function fetchAlbum(albumID){
+
+  const endpoint = `https://api.spotify.com/v1/albums/${albumID}`
+
+  try {
+
+    // Fetch data from Spotify API
+    const albumResponse = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    // If the albumResponse is not OK, throw an error
+    if (!albumResponse.ok) {
+      throw new Error(`Spotify API request failed: ${albumResponse.statusText}`);
+    }
+
+    // Parse the albumResponse body as JSON
+    const data = await albumResponse.json();
+    // Return the artists array
+    return data;
+
   } catch (error) {
     // Log error and throw it up the chain
     console.error("Error fetching albums from Spotify:", error);
@@ -41,24 +95,33 @@ async function fetchAlbumsFromSpotify() {
 }
 
 // Index - GET - /albums
-router.get("/albums", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
+    
     // Fetch albums from Spotify
-    const albums = await fetchAlbumsFromSpotify();
+    const albums = await fetchAlbums();
     // Send the response
-    res.json(albums);
+    res.send(albums);
+
   } catch (error) {
     // Handle error
     res.status(500).json({ error: "Failed to fetch albums from Spotify" });
   }
 });
 
-// Create - POST - /albums
-
 // Show - GET - /albums/:id
+router.get("/:id", async (req, res)=> {
+  try{
+    
+    // Fetch albums from Spotify
+    const album = await fetchAlbum(req.params.id);
+    // Send the response
+    res.send(album);
 
-// Update - PUT - /albums/:id
-
-// Delete - DELETE - /albums/:id
+  }catch (error) {
+    // Handle error
+    res.status(500).json({ error: "Failed to fetch album from Spotify" });
+  }
+})
 
 module.exports = router;

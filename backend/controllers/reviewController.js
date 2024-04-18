@@ -1,7 +1,7 @@
 const express = require('express');
 const Review = require('../models/review');  // Correct Path?
 const router = express.Router();
-// Middleware to ensure the user is logged in
+// // Middleware to ensure the user is logged in
 function ensureAuthenticated(req, res, next) {
   if (!req.session.user) {
     return res.status(401).json({ message: "You must be logged in to perform this action" });
@@ -9,7 +9,7 @@ function ensureAuthenticated(req, res, next) {
   next();
 }
 // POST a review
-router.post('/', ensureAuthenticated, async (req, res) => {
+router.post('/:itemType/:itemId', ensureAuthenticated, async (req, res) => {
   try {
     const newReview = new Review({
       title: req.body.title,
@@ -23,7 +23,7 @@ router.post('/', ensureAuthenticated, async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// GET all reviews
+// // GET all reviews
 router.get('/', async (req, res) => {
   try {
     const reviews = await Review.find().populate('reviewedBy', 'username');
@@ -48,4 +48,8 @@ router.delete('/:id', ensureAuthenticated, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+router.get('/', (req, res) => {
+  res.send("Reviews");
+})
 module.exports = router;
