@@ -7,6 +7,10 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   favoriteArtists: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
   favoriteAlbums: [{ type: Schema.Types.ObjectId, ref: "Album" }],
+  session: {
+    id: { type: Schema.Types.ObjectId },
+    username: { type: String }
+  }
 });
 
 module.exports = mongoose.model("User", userSchema);

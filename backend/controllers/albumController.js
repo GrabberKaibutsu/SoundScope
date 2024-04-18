@@ -8,7 +8,6 @@ require('dotenv').config()
 // Require DB connection
 // const db = require("../models");
 
-process.env.MONGODBURI
 
 const CLIENT_ID = process.env.Client_ID
 const CLIENT_SECRET = process.env.Client_Secret
@@ -23,12 +22,15 @@ let authParameters = {
   body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
 }
 
+// - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
+
 fetch('https://accounts.spotify.com/api/token', authParameters)
 .then(result => result.json())
 .then(data=> 
   // console.log(data)
   token = data.access_token
 )
+// - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
 
 async function fetchAlbums(){
 
@@ -101,7 +103,7 @@ router.get("/", async (req, res) => {
     // Fetch albums from Spotify
     const albums = await fetchAlbums();
     // Send the response
-    res.send(albums);
+    res.json(albums);
 
   } catch (error) {
     // Handle error
@@ -116,7 +118,7 @@ router.get("/:id", async (req, res)=> {
     // Fetch albums from Spotify
     const album = await fetchAlbum(req.params.id);
     // Send the response
-    res.send(album);
+    res.json(album);
 
   }catch (error) {
     // Handle error
