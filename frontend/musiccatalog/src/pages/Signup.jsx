@@ -9,7 +9,7 @@ const Signup = (props) => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch("http://localhost:3001/register", {
+      const response = await fetch("http://localhost:3001/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const Signup = (props) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSignUp();
+            handleSignup();
           }}
           className="space-y-4"
         >
