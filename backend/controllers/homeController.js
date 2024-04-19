@@ -28,12 +28,28 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 
 async function getList(){
 
-    const endpoint = `https://api.spotify.com/v1/search?q=year%3A2024&type=artist,album,track&market=US&limit=9`
+    const artistsEndpoint = `https://api.spotify.com/v1/search?q=year%3A2024&type=artist&market=US&limit=9`
+    const albumsEndpoint = "https://api.spotify.com/v1/browse/new-releases?limit=9"
+    const tracksEndpoint = `https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF/tracks?market=US&limit=9`
   
     try {
   
       // Fetch data from Spotify API
-      const homeResponse = await fetch(endpoint, {
+      const artistsResponse = await fetch(artistsEndpoint, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const albumsResponse = await fetch(albumsEndpoint, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const tracksResponse = await fetch(tracksEndpoint, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -42,12 +58,22 @@ async function getList(){
       });
   
       // If the response is not OK, throw an error
-      if (!homeResponse.ok) {
-        throw new Error(`Spotify API request failed: ${homeResponse.statusText}`);
+      if (!artistsResponse.ok) {
+        throw new Error(`Spotify API request failed: ${artistsResponse.statusText}`);
+      }
+      if (!albumsResponse.ok) {
+        throw new Error(`Spotify API request failed: ${albumsResponse.statusText}`);
+      }
+      if (!tracksResponse.ok) {
+        throw new Error(`Spotify API request failed: ${tracksResponse.statusText}`);
       }
   
       // Parse the response body as JSON
-      const data = await homeResponse.json();
+      const artistsData = await artistsResponse.json();
+      const albumsData = await albumsResponse.json();
+      const tracksData = await tracksResponse.json();
+
+      let data = [artistsData.artists.items, albumsData.albums.items, tracksData.items]
       // Return the array
       return data
   
