@@ -60,6 +60,7 @@ const Login = (props) => {
             type="text"
             name="email"
             placeholder="Email"
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"
