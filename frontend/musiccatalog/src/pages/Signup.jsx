@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
