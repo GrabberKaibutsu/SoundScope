@@ -86,7 +86,7 @@ async function fetchAlbum(albumID){
 
     // Parse the albumResponse body as JSON
     const data = await albumResponse.json();
-    // Return the artists array
+    // Return the album array
     return data;
 
   } catch (error) {

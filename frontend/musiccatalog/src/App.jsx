@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Home from "./pages/Homepage"
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -12,7 +13,7 @@ function App() {
   return (
     <>
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup setUser={setUser} />} />
         {/* <Route path="/login" element={<Login setUser={setUser} />} /> */}
       </Routes>
