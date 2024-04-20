@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Albums from "../components/HomeAlbum"
+import Songs from "../components/SongsAlbum"
 
 const Homepage = () => {
 
@@ -18,9 +20,9 @@ const Homepage = () => {
     let topArtists = homeData[0]
     let newAlbums = homeData[1]
     let topTracks = homeData[2]
-    console.log(topArtists)
-    console.log(newAlbums)
-    console.log(topTracks)
+    // console.log(topArtists)
+    // console.log(newAlbums)
+    // console.log(topTracks)
 
   return (
     <div>
@@ -38,31 +40,19 @@ const Homepage = () => {
             })}
         </ul>
 
-        <h1>New Albums</h1>
+        <div>
+            <h1>New Albums</h1>
+            <input type="button" value="View More Albums" />
+        </div>
 
-        <ul>
-            {newAlbums && newAlbums.map((item, index) => {
-                return (
-                    <li>
-                        {item.name}
-                        <br></br>
-                        <img src={item.images[1].url} />
-                    </li>
-                );
-            })}
-        </ul>
+        <Albums albums={newAlbums} />
 
-        <h1>Top Songs</h1>
+        <div>
+            <h1>Top Songs</h1>
+            <input type="button" value="View More Songs" />
+        </div>
 
-        <ul>
-            {topTracks && topTracks.map((item, index) => {
-                return (
-                    <li>
-                        {item.track.name}
-                    </li>
-                );
-            })}
-        </ul>
+        <Songs songs={topTracks} />
     </div>
   )
 }
