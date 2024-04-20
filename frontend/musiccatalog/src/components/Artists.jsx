@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Artists = () => {
   const [artists, setArtists] = useState([]);
@@ -30,7 +31,7 @@ const Artists = () => {
       ) : (
         <div>
           <h1 className="text-3xl font-bold text-center text-white my-6">
-            Artists
+            Top 20 Artists
           </h1>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {artists.map((artist) => (
@@ -38,19 +39,24 @@ const Artists = () => {
                 key={artist.id}
                 className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center space-y-3"
               >
-                <img
-                  src={artist.images[0]?.url}
-                  alt={artist.name}
-                  className="w-32 h-32 rounded-full object-cover mx-auto"
-                />
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900">
-                    {artist.name}
-                  </h2>
-                  <p className="text-sm text-gray-500">
-                    {artist.followers.total.toLocaleString()} followers
-                  </p>
-                </div>
+                <Link
+                  to={`/artist/${artist.id}`}
+                  className="flex flex-col items-center space-y-3"
+                >
+                  <img
+                    src={artist.images[0]?.url}
+                    alt={artist.name}
+                    className="w-32 h-32 rounded-full object-cover mx-auto"
+                  />
+                  <div>
+                    <h2 className="text-lg font-bold text-gray-900">
+                      {artist.name}
+                    </h2>
+                    <p className="text-sm text-gray-500">
+                      {artist.followers.total.toLocaleString()} followers
+                    </p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>
