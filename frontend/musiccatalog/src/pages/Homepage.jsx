@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Homepage = () => {
-<<<<<<< HEAD
 
     const [homeData, setHomeData] = useState([]);
 
@@ -65,10 +64,6 @@ const Homepage = () => {
             })}
         </ul>
     </div>
-=======
-  return (
-    <div>Homepage</div>
->>>>>>> f0bf10095b330d89b8909ef19d550b2e0286e92d
   )
 }
 
