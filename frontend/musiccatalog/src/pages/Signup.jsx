@@ -22,6 +22,7 @@ const Signup = (props) => {
       const data = await response.json();
       props.setUser(data.newUser);
       localStorage.setItem("token", data.token);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
