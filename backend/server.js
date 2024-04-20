@@ -45,8 +45,7 @@ app.use(express.json());
 //   saveUninitialized: false
 // }));
 
-app.use(morgan('dev')); 
-
+app.use(morgan("dev"));
 
 app.use("/artists", artistController);
 app.use('/api', musicdbRoutes);
