@@ -34,7 +34,7 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 
 async function fetchAlbums(){
 
-  const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=20"
+  const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=30"
 
   try {
 
