@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; //new code 
 const NavBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { isAuthenticated, user } = useContext(AuthContext); //new code used to discern context
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };

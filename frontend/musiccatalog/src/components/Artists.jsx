@@ -22,6 +22,7 @@ const Artists = () => {
   }, []); // Empty dependency array means this effect runs once on mount
 
   return (
+
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-blue-800 py-6">
       {error ? (
         <p className="text-red-600 text-center font-medium mt-5">
