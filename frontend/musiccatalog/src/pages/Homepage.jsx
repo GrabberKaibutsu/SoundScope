@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Artists from "../components/Artists";
-import Albums from "../components/HomeAlbum"
-import Songs from "../components/HomeSongs"
+import Albums from "../components/Album"
+import Songs from "../components/Songs"
 
 const Homepage = () => {
   const [homeData, setHomeData] = useState([]);

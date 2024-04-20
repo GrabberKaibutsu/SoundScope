@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Songs from "../components/AlbumSongs"
 
 const ShowAlbum = () => {
 
@@ -16,15 +17,20 @@ const ShowAlbum = () => {
           .then((jsonRes) => setalbum(jsonRes));
       }, [id]);
 
-    //   console.log(album.name)
+      console.log(album)
 
     return (
         <div>
             ShowAlbum
             <br></br>
+
+            <img src={album.images[1].url} />
             {album.name}
             <br></br>
-            <img src={album.images[0].url} />
+            {album.artists[0].name}
+            <br></br>
+            <br></br>
+            <Songs songs={album.tracks.items} />
         </div>
     )
 }
