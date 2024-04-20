@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Albums from "../components/HomeAlbum"
-import Songs from "../components/SongsAlbum"
+import Songs from "../components/HomeSongs"
 
 const Homepage = () => {
 
