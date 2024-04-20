@@ -7,6 +7,8 @@ import NavBar from './components/NavBar';
 import Home from "./pages/Homepage"
 import Album from "./pages/ShowAlbum"
 import Albums from "./pages/ViewAlbums"
+import SingleArtist from "./components/SingleArtist";
+
 
 function App() {
   const [user, setUser] = useState(() => {
