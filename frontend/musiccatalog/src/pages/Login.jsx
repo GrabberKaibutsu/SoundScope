@@ -30,6 +30,7 @@ const Login = (props) => {
       props.setUser(data.user);
       console.log("User set in login:", data.user);
       localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/");
     } catch (error) {
       console.error("Network error:", error);
       alert("Network error: " + error.message);
