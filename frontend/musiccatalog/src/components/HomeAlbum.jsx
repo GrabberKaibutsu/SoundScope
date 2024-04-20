@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const HomeAlbum = ({albums}) => {
   return (
@@ -7,9 +8,11 @@ const HomeAlbum = ({albums}) => {
             {albums && albums.map((item, index) => {
                 return (
                     <li>
-                        {item.name}
-                        <br></br>
-                        <img src={item.images[1].url} />
+                        <Link to={`/album/${item.id}`}>
+                            {item.name}
+                            <br></br>
+                            <img src={item.images[1].url} />
+                        </Link>
                     </li>
                 );
             })}
