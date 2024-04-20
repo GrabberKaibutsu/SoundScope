@@ -14,6 +14,7 @@ const Homepage = () => {
       })
       .then((jsonRes) => setHomeData(jsonRes));
   }, []);
+
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
   console.log(newAlbums);
@@ -49,6 +50,7 @@ const Homepage = () => {
             return <li>{item.track.name}</li>;
           })}
       </ul>
+
     </div>
   );
 };
