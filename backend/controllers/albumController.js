@@ -5,8 +5,8 @@ const router = express.Router();
 const Album = require("../models/album");
 require('dotenv').config()
 
-// Require DB connection
-// const db = require("../models");
+ //Require DB connection
+ const db = require("../models");
 
 
 const CLIENT_ID = process.env.Client_ID
@@ -34,7 +34,7 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 
 async function fetchAlbums(){
 
-  const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=20"
+  const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=30"
 
   try {
 

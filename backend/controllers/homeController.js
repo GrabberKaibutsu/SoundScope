@@ -28,9 +28,9 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 
 async function getList(){
 
-    const artistsEndpoint = `https://api.spotify.com/v1/search?q=year%3A2024&type=artist&market=US&limit=9`
-    const albumsEndpoint = "https://api.spotify.com/v1/browse/new-releases?limit=9"
-    const tracksEndpoint = `https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF/tracks?market=US&limit=9`
+    const artistsEndpoint = `https://api.spotify.com/v1/search?q=year%3A2024&type=artist&market=US&limit=5`
+    const albumsEndpoint = "https://api.spotify.com/v1/browse/new-releases?limit=5"
+    const tracksEndpoint = `https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF/tracks?market=US&limit=5`
   
     try {
   
