@@ -60,7 +60,7 @@ async function getGenres(){
 
 async function getGenre(genreTerm){
 
-    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=album%2Cartist%2Ctrack&market=US&limit=9`
+    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=album%2Cartist%2Ctrack&market=US&limit=5`
   
     try {
   

@@ -6,6 +6,7 @@ const ShowGenre = () => {
     const { genre } = useParams();
     const [genreData, setGenreData] = useState(null);
 
+    // will grab a list of top 5 artists, albums and tracks of that genre
     useEffect(() => {
         fetch(`http://localhost:3001/genre/${genre}`)
         .then((res) => {
@@ -21,26 +22,30 @@ const ShowGenre = () => {
     return (
         <div>
             Show Genre Data
+            {/* will show the top 5 artists of that genre */}
             <div>
-        <h1>Top Artist</h1>
-        <Artists />
-      </div>
+                <h1>Artist</h1>
+                {/* links to a page that will show more artists of that genre */}
+                <Link to={`/albums`}>View More Artists</Link>
+            </div>
 
-      <div>
-        <div>
-            <h1>New Albums</h1>
-            <Link to={`/albums`}>View More Albums</Link>
-        </div>
-        <Albums albums={newAlbums} />
-      </div>
+            <div>
+                {/* will show the top 5 albums of that genre */}
+                <div>
+                    <h1>Albums</h1>
+                    {/* links to a page that will show more albums of that genre */}
+                    <Link to={`/albums`}>View More Albums</Link>
+                </div>
+            </div>
 
-      <div>
-        <div>
-            <h1>Top Songs</h1>
-            <input type="button" value="View More Songs" />
-        </div>
-        <Songs songs={topTracks} />
-      </div>
+            <div>
+                {/* will show the top 5 songs of that genre */}
+                <div>
+                    <h1>Songs</h1>
+                    {/* links to a page that will show more songs of that genre */}
+                    <input type="button" value="View More Songs" />
+                </div>
+            </div>
         </div>
     )
 }
