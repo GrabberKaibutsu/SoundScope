@@ -30,15 +30,6 @@ const ShowGenre = () => {
             </div>
 
             <div>
-                {/* will show the top 5 albums of that genre */}
-                <div>
-                    <h1>Albums</h1>
-                    {/* links to a page that will show more albums of that genre */}
-                    <Link to={`/albums`}>View More Albums</Link>
-                </div>
-            </div>
-
-            <div>
                 {/* will show the top 5 songs of that genre */}
                 <div>
                     <h1>Songs</h1>

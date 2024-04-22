@@ -60,7 +60,7 @@ async function getGenres(){
 
 async function getGenre(genreTerm){
 
-    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=album%2Cartist%2Ctrack&market=US&limit=5`
+    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=artist%2Ctrack&market=US&limit=5`
   
     try {
   
@@ -90,7 +90,69 @@ async function getGenre(genreTerm){
     }
   }
 
+  async function getGenreArtists(genreTerm){
 
+    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=artist&market=US&limit=30`
+  
+    try {
+  
+      // Fetch data from Spotify API
+      const artistGenreResponse = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      // If the response is not OK, throw an error
+      if (!artistGenreResponse.ok) {
+        throw new Error(`Spotify API request failed: ${artistGenreResponse.statusText}`);
+      }
+  
+      // Parse the response body as JSON
+      const data = await artistGenreResponse.json();
+      // Return the artists array for genre
+      return data
+  
+    } catch (error) {
+      // Log error and throw it up the chain
+      console.error("Error fetching genres from Spotify:", error);
+      throw error;
+    }
+  }
+
+  async function getGenreTracks(genreTerm){
+
+    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=track&market=US&limit=30`
+  
+    try {
+  
+      // Fetch data from Spotify API
+      const tracksGenreResponse = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      // If the response is not OK, throw an error
+      if (!tracksGenreResponse.ok) {
+        throw new Error(`Spotify API request failed: ${tracksGenreResponse.statusText}`);
+      }
+  
+      // Parse the response body as JSON
+      const data = await tracksGenreResponse.json();
+      // Return the tracks array for genre
+      return data
+  
+    } catch (error) {
+      // Log error and throw it up the chain
+      console.error("Error fetching genres from Spotify:", error);
+      throw error;
+    }
+  }
 
   router.get("/", async (req, res)=> {
     try{
@@ -113,6 +175,34 @@ async function getGenre(genreTerm){
       const genre = await getGenre(req.params.genre);
       // Send the response
       res.json(genre);
+
+    }catch (error) {
+      // Handle error
+      res.status(500).json({ error: "Failed to fetch data from Spotify" });
+    }
+  })
+
+  router.get("artists/:genre", async (req, res)=> {
+    try{
+
+      // Fetch genres from Spotify with
+      const artistsGenre = await getGenreArtists(req.params.genre);
+      // Send the response
+      res.json(artistsGenre);
+
+    }catch (error) {
+      // Handle error
+      res.status(500).json({ error: "Failed to fetch data from Spotify" });
+    }
+  })
+
+  router.get("tracks/:genre", async (req, res)=> {
+    try{
+
+      // Fetch genres from Spotify with
+      const tracksGenre = await getGenreTracks(req.params.genre);
+      // Send the response
+      res.json(tracksGenre);
 
     }catch (error) {
       // Handle error
