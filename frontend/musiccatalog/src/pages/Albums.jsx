@@ -15,7 +15,7 @@ const ViewAlbums = () => {
         .then((jsonRes) => setAlbums(jsonRes));
     }, []);
 
-    console.log(albums)
+    // console.log(albums)
 
   return (
     <div>

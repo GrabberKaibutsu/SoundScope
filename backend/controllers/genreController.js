@@ -33,6 +33,38 @@ async function getGenres(){
     try {
   
       // Fetch data from Spotify API
+      const genresResponse = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+  
+      // If the response is not OK, throw an error
+      if (!genresResponse.ok) {
+        throw new Error(`Spotify API request failed: ${genresResponse.statusText}`);
+      }
+  
+      // Parse the response body as JSON
+      const data = await genresResponse.json();
+      // Return the artists array
+      return data.genres
+  
+    } catch (error) {
+      // Log error and throw it up the chain
+      console.error("Error fetching genres from Spotify:", error);
+      throw error;
+    }
+  }
+
+async function getGenre(genreTerm){
+
+    const endpoint = `https://api.spotify.com/v1/search?q=genre%${genreTerm}genreTerm&type=album%2Cartist%2Ctrack&market=US&limit=9`
+  
+    try {
+  
+      // Fetch data from Spotify API
       const genreResponse = await fetch(endpoint, {
         method: "GET",
         headers: {
@@ -49,7 +81,7 @@ async function getGenres(){
       // Parse the response body as JSON
       const data = await genreResponse.json();
       // Return the artists array
-      return data.genres
+      return data
   
     } catch (error) {
       // Log error and throw it up the chain
@@ -57,6 +89,8 @@ async function getGenres(){
       throw error;
     }
   }
+
+
 
   router.get("/", async (req, res)=> {
     try{
@@ -66,6 +100,20 @@ async function getGenres(){
       // Send the response
       res.json(genres);
   
+    }catch (error) {
+      // Handle error
+      res.status(500).json({ error: "Failed to fetch data from Spotify" });
+    }
+  })
+
+  router.get("/:genre", async (req, res)=> {
+    try{
+
+      // Fetch genres from Spotify with
+      const genre = await getGenre(req.params.genre);
+      // Send the response
+      res.json(genre);
+
     }catch (error) {
       // Handle error
       res.status(500).json({ error: "Failed to fetch data from Spotify" });
