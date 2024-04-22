@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import NavBar from './components/NavBar';
+import'./NavBar.css';
 import Home from "./pages/Homepage"
 import Album from "./pages/ShowAlbum"
 import Albums from "./pages/Albums"
