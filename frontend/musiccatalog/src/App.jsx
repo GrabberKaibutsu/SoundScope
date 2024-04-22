@@ -11,6 +11,7 @@ import SingleArtist from "./components/SingleArtist";
 import Genre from "./pages/Genre"
 import ShowGenre from"./pages/ShowGenre"
 
+
 function App() {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
