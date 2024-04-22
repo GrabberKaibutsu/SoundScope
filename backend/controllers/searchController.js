@@ -28,6 +28,12 @@ fetch('https://accounts.spotify.com/api/token', authParameters)
 
 async function searchSpotify(searchTerm){
 
+    // let searchTermSplit = searchTerm.split(' ')
+    // let searchTermSpace = searchTermSplit.join('%2520');
+    // let searchTermSplitTwo = searchTermSpace.split(':')
+    // searchTerm = searchTermSplitTwo.join('%3A');
+    // console.log(searchTerm)
+
     const endpoint = `https://api.spotify.com/v1/search?q=${searchTerm}&type=artist,album,track&market=US&limit=20`
   
     try {
@@ -48,7 +54,7 @@ async function searchSpotify(searchTerm){
   
       // Parse the response body as JSON
       const data = await searchResponse.json();
-      // Return the artists array
+      // Return the array
       return data
   
     } catch (error) {

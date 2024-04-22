@@ -16,9 +16,9 @@ async function fetch(url, options) {
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
   // Get Spotify client ID
-  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const clientId = process.env.CLIENT_ID;
   // Get Spotify client secret from environment variables
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+  const clientSecret = process.env.CLIENT_SECRET;
   // Define the token URL
   const tokenUrl = "https://accounts.spotify.com/api/token";
   // Uses buffer to encode the client ID and client secret in base64
@@ -51,7 +51,6 @@ async function getSpotifyAccessToken() {
 
 // Function to fetch artist data from Spotify API
 async function fetchArtistsFromSpotify() {
-
   // Get Spotify access token using the getSpotifyAccessToken function
   const token = await getSpotifyAccessToken();
   // Get Spotify API base URL and define the endpoint for the search query

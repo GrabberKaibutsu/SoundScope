@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
@@ -19,6 +22,7 @@ const Signup = (props) => {
       const data = await response.json();
       props.setUser(data.newUser);
       localStorage.setItem("token", data.token);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
