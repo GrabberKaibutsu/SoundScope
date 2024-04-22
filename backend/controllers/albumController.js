@@ -6,7 +6,7 @@ const Album = require("../models/album");
 require('dotenv').config()
 
  //Require DB connection
- const db = require("../models");
+ //const db = require("../models");
 
 
 const CLIENT_ID = process.env.Client_ID
