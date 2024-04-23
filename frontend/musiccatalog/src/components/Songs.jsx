@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Songs = ({ songs }) => {
 
   return (
-    <div className="text-white">
+    <div className="text-slate-50">
         <ul className="grid grid-cols-2 gap-2">
             {songs && songs.map((item, index) => {
                 return (
