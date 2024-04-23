@@ -21,6 +21,7 @@ function App() {
   return (
     <>
       <NavBar />
+      <br></br>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup setUser={setUser} />} />

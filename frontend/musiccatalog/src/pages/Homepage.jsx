@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Artists from "../components/Artists";
-import Albums from "../components/Album"
+import Albums from "../components/AlbumHome"
 import Songs from "../components/Songs"
 import { Link } from "react-router-dom";
 
@@ -22,30 +22,40 @@ const Homepage = () => {
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
   // console.log(newAlbums);
-  // console.log(topTracks);
+  console.log(topTracks);
 
   return (
     <div>
       <div>
-        <h1>Top Artist</h1>
+        <div className="flex gap-96">
+          <h1 className="text-white text-4xl">Top Artist</h1>
+          <Link to={`/artists`} className="text-white" >View More Artists</Link>
+        </div>
         <Artists />
       </div>
 
-      <div>
-        <div>
-            <h1>New Albums</h1>
-            {/* if the user wants to view more albums, they will be sent to a page that will display the top 20 new released albums */}
-            <Link to={`/albums`}>View More Albums</Link>
-        </div>
-        {/* components that will fomat the list of albums */}
-        <Albums albums={newAlbums} />
-      </div>
+      <br></br>
 
       <div>
+        <div className="flex gap-96">
+            <h1 className="text-white text-4xl">New Albums</h1>
+            {/* if the user wants to view more albums, they will be sent to a page that will display the top 20 new released albums */}
+            <Link to={`/albums`} className="text-white" >View More Albums</Link>
+        </div>
+        <br></br>
+        {/* components that will fomat the list of albums */}
         <div>
-            <h1>Top Songs</h1>
+          <Albums albums={newAlbums} />
+        </div>
+      </div>
+
+      <br></br>
+
+      <div>
+        <div className="flex gap-96">
+            <h1 className="text-white text-4xl">Top Songs</h1>
             {/* if the user wants to view more songs, they will be sent to a page that will display the top 20 songs */}
-            <input type="button" value="View More Songs" />
+            <input type="button" value="View More Songs" className="text-white" />
         </div>
         {/* components that will fomat the list of songs */}
         <Songs songs={topTracks} />

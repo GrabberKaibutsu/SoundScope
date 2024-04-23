@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const HomeAlbum = ({albums}) => {
   return (
     <div className="text-white">
-        <ul>
+        <ul className="flex gap-3">
             {/* Goes over each album in the list to display the top 20 albums */}
             {albums && albums.map((item, index) => {
                 return (
