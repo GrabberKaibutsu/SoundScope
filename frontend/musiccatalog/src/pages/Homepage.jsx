@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const Homepage = () => {
   const [homeData, setHomeData] = useState([]);
 
+  // gets the list of top 5 artists, albums and tracks to display on the home page
   useEffect(() => {
     fetch("http://localhost:3001/home")
       .then((res) => {
@@ -17,10 +18,11 @@ const Homepage = () => {
       .then((jsonRes) => setHomeData(jsonRes));
   }, []);
 
+  // displays the top 5 for albums and tracks
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
-  console.log(newAlbums);
-  console.log(topTracks);
+  // console.log(newAlbums);
+  // console.log(topTracks);
 
   return (
     <div>
@@ -32,44 +34,23 @@ const Homepage = () => {
       <div>
         <div>
             <h1>New Albums</h1>
+            {/* if the user wants to view more albums, they will be sent to a page that will display the top 20 new released albums */}
             <Link to={`/albums`}>View More Albums</Link>
         </div>
+        {/* components that will fomat the list of albums */}
         <Albums albums={newAlbums} />
       </div>
 
-<<<<<<< HEAD
       <div>
         <div>
             <h1>Top Songs</h1>
+            {/* if the user wants to view more songs, they will be sent to a page that will display the top 20 songs */}
             <input type="button" value="View More Songs" />
         </div>
+        {/* components that will fomat the list of songs */}
         <Songs songs={topTracks} />
       </div>
       
-=======
-      <ul>
-        {newAlbums &&
-          newAlbums.map((item, index) => {
-            return (
-              <li>
-                {item.name}
-                <br></br>
-                <img src={item.images[1].url} />
-              </li>
-            );
-          })}
-      </ul>
-
-      <h1>Top Songs</h1>
-
-      <ul>
-        {topTracks &&
-          topTracks.map((item, index) => {
-            return <li>{item.track.name}</li>;
-          })}
-      </ul>
-
->>>>>>> ba710d609eab69ca19e686a6c73e41721699ad5e
     </div>
   );
 };
