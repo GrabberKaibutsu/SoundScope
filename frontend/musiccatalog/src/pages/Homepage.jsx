@@ -28,8 +28,8 @@ const Homepage = () => {
     <div>
       <div>
         <div className="flex gap-96">
-          <h1 className="text-white text-4xl">Top Artist</h1>
-          <Link to={`/artists`} className="text-white hover:text-indigo-600" >View More Artists</Link>
+          <h1 className="text-slate-50 text-4xl">Top Artist</h1>
+          <Link to={`/artists`} className="text-slate-50 hover:text-indigo-600" >View More Artists</Link>
         </div>
         <br></br>
         <Artists />
@@ -39,9 +39,9 @@ const Homepage = () => {
 
       <div>
         <div className="flex gap-96">
-            <h1 className="text-white text-4xl">New Albums</h1>
+            <h1 className="text-slate-50 text-4xl">New Albums</h1>
             {/* if the user wants to view more albums, they will be sent to a page that will display the top 20 new released albums */}
-            <Link to={`/albums`} className="text-white hover:text-indigo-600" >View More Albums</Link>
+            <Link to={`/albums`} className="text-slate-50 hover:text-indigo-600" >View More Albums</Link>
         </div>
         <br></br>
         {/* components that will fomat the list of albums */}
@@ -54,7 +54,7 @@ const Homepage = () => {
 
       <div>
         <div className="flex gap-96">
-            <h1 className="text-white text-4xl">Top Songs</h1>
+            <h1 className="text-slate-50 text-4xl">Top Songs</h1>
             {/* if the user wants to view more songs, they will be sent to a page that will display the top 20 songs */}
             <input type="button" value="View More Songs" className="text-white hover:text-indigo-600" />
         </div>
