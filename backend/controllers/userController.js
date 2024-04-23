@@ -39,13 +39,18 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
     req.session.user = { id: user._id, username: user.username }; // Store user info in session
+    console.log("This is coming from the login route", req.session);
     res.json({
       message: "Logged in successfully",
       user: { id: user._id, username: user.username }, // Send user data to the client
     });
+    console.log("INSIDE TRY: Session ID after setting user:", req.sessionID);
+    console.log("INSIDE TRY: Cookie sent:", res.getHeader("Set-Cookie"));
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+  console.log("END: Session ID after setting user:", req.sessionID);
+  console.log("END: Cookie sent:", res.getHeader("Set-Cookie"));
 });
 
 // Logout route
