@@ -13,7 +13,7 @@ const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="home-link">
-        <Link to={"/"}>Home</Link>
+        <Link to={"/"} className="hover:text-indigo-600">Home</Link>
       </div>
       <div className="search-section">
         <input
@@ -25,18 +25,18 @@ const NavBar = () => {
         <button type="button" onClick={performSearch}>Search</button>
       </div>
       <div className="nav-links">
-        <Link to={"/artists"}>Artists</Link>
-        <Link to={"/albums"}>Albums</Link>
-        <Link to={"/genres"}>Genres</Link>
+        <Link to={"/artists"} className="hover:text-indigo-600">Artists</Link>
+        <Link to={"/albums"} className="hover:text-indigo-600">Albums</Link>
+        <Link to={"/genres"} className="hover:text-indigo-600">Genres</Link>
       </div>
       <div className="profile-section">
         {isAuthenticated ? (
           <>
             <span>Welcome, {user.name}</span>
-            <Link to={"/logout"}>Logout</Link>
+            <Link to={"/logout"} className="hover:text-indigo-600">Logout</Link>
           </>
         ) : (
-          <Link to={"/login"}>Login</Link>
+          <Link to={"/login"} className="hover:text-indigo-600">Login</Link>
         )}
       </div>
     </nav>

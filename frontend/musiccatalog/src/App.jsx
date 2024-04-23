@@ -8,7 +8,7 @@ import'./NavBar.css';
 
 import Home from "./pages/Homepage";
 import Album from "./pages/ShowAlbum";
-import Albums from "./pages/ViewAlbums";
+import Albums from "./pages/Albums";
 
 import SingleArtist from "./components/SingleArtist";
 import Genre from "./pages/Genre"
@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <NavBar />
-
+      <br></br>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup setUser={setUser} />} />
