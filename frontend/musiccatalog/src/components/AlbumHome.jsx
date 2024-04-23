@@ -10,7 +10,7 @@ const HomeAlbum = ({albums}) => {
                 return (
                     <li className="flex">
                         {/* link to the show album page that will show more details about the album */}
-                        <Link to={`/album/${item.id}`}>
+                        <Link to={`/album/${item.id}`} className="hover:text-indigo-600">
                             <img src={item.images[0].url} />
                             {item.name}
                         </Link>
