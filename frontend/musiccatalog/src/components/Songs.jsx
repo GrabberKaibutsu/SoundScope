@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
 
-// wil go over the list of songs and display them on the screen, gets the data from the homepage and the showalbum page
-const SongsAlbum = ({songs}) => {
+
+const Songs = ({ songs }) => {
+
   return (
     <div className="text-white grid-cols-2">
         <ul>
@@ -14,7 +15,7 @@ const SongsAlbum = ({songs}) => {
             })}
         </ul>
     </div>
-  )
-}
+  );
+};
 
-export default SongsAlbum
+export default Songs;

@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
 
-const liveReloadServer = livereload.createServer();
+// const liveReloadServer = livereload.createServer();
 
 //Import routes from the controllers
 const artistController = require("./controllers/artistController");
@@ -25,26 +25,36 @@ const genreRoutes = require("./controllers/genreController");
 const userRouter = require("./controllers/userController");
 const homeRouter = require("./controllers/homeController");
 
-liveReloadServer.watch(path.join(__dirname, "../public"));
+// liveReloadServer.watch(path.join(__dirname, "../public"));
 
-app.use(connectLiveReload());
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
+// app.use(connectLiveReload());
+// liveReloadServer.server.once("connection", () => {
+//   setTimeout(() => {
+//     liveReloadServer.refresh("/");
+//   }, 100);
+// });
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: "http://localhost:5173",
+  })
+);
+app.options("*", cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   session({
-    // Use express-session middleware
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: false, // Set to true if you're using HTTPS
+      sameSite: "none",
+      maxAge: 1000 * 60 * 60 * 24, // 24 hours
+    },
   })
 );
 

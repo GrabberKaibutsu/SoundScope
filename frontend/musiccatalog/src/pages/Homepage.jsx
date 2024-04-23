@@ -49,11 +49,10 @@ const Homepage = () => {
         </div>
       </div>
 
-      <br></br>
 
       <div>
-        <div className="flex gap-96">
-            <h1 className="text-white text-4xl">Top Songs</h1>
+        <div>
+            <h1>Top Songs</h1>
             {/* if the user wants to view more songs, they will be sent to a page that will display the top 20 songs */}
             <input type="button" value="View More Songs" className="text-white" />
         </div>
