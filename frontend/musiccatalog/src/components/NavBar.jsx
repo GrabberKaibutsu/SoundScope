@@ -1,14 +1,17 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext'; //new code 
 const NavBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { isAuthenticated, user } = useContext(AuthContext); //new code used to discern context
+  const navigate = useNavigate();
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
   const performSearch = () => {
     console.log('Search Term:', searchTerm);
+    navigate(`/search/${searchTerm}`);
   };
   return (
     <nav className="navbar">
@@ -21,6 +24,7 @@ const NavBar = () => {
           placeholder="Search..."
           value={searchTerm}
           onChange={handleSearchChange}
+          className="text-stone-800"
         />
         <button type="button" onClick={performSearch}>Search</button>
       </div>

@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import NavBar from "./components/NavBar";
 import'./NavBar.css';
+import Search from "./pages/Search"
 
 import Home from "./pages/Homepage";
 import Album from "./pages/ShowAlbum";
@@ -32,6 +33,7 @@ function App() {
           <Route path="/artist/:id" element={<SingleArtist />} />
           <Route path="/genres" element={<Genre />}/>
           <Route path="/genres/:genre" element={<ShowGenre />}/>
+          <Route path="/search/:searchTerm" element={<Search />}/>
         </Routes>
 
     </>
