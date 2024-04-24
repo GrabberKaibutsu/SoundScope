@@ -138,6 +138,44 @@ router.get("/:id", async (req, res) => {
 
 // Update - PUT - /artists/:id
 
+// Toggle favorite artist
+router.post("/favorite", async (req, res) => {
+  console.log("Session ID in favorite artist:", req.session);
+  // Ensure the user is logged in
+  if (!req.session.user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  // Use the user id from the session
+  const { artistId } = req.body;
+  const userId = req.session.user.id;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // If artist is not already favorited, add to favorites
+    const index = user.favoriteArtists.indexOf(artistId);
+    if (index === -1) {
+      user.favoriteArtists.push(artistId);
+      // If artist is already favorited, remove from favorites
+    } else {
+      user.favoriteArtists.splice(index, 1);
+    }
+
+    await user.save();
+    res.status(200).json({
+      message: "Favorite artists updated successfully",
+      favorites: user.favoriteArtists,
+    });
+  } catch (error) {
+    console.error("Error toggling favorite artist:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Delete - DELETE - /artists/:id
 
 module.exports = router;

@@ -1,14 +1,14 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
-// work on, not working the same with the show album, similar to the song component
-const AlbumSongs = ({songs}) => {
+const SearchedSongs = ({songs}) => {
   return (
     <div className="text-slate-50">
         <ul className="grid grid-cols-2 gap-2">
             {songs && songs.map((item, index) => {
                 return (
                     <li>
-                        {item.name}
+                        <p>{item.name} <Link to={`/artists/${item.artists[0].id}`}> <span className="text-zinc-500 hover:text-indigo-600">{item.artists[0].name}</span> </Link></p>
                     </li>
                 );
             })}
@@ -17,4 +17,4 @@ const AlbumSongs = ({songs}) => {
   )
 }
 
-export default AlbumSongs
+export default SearchedSongs

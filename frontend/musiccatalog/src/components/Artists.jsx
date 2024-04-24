@@ -20,7 +20,7 @@ const Artists = () => {
         console.error("Error fetching artists:", error);
         setError("Failed to fetch artists");
       });
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []);
 
   return (
 
