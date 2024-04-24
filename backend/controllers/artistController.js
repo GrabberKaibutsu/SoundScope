@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Artist = require("../models/artist");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 // Require DB connection
 const db = require("../models");
@@ -12,6 +14,24 @@ async function fetch(url, options) {
   const { default: fetch } = await import("node-fetch");
   return fetch(url, options);
 }
+
+// Middleware for validating JWT tokens
+const validateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        console.error("JWT Error:", err);
+        return res.status(403).json({ message: "Invalid token" });
+      }
+      req.user = decoded;
+      next();
+    });
+  } else {
+    res.status(401).json({ message: "No token provided" });
+  }
+};
 
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
@@ -120,6 +140,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET Check to see if an artist is favorited for a user
+router.get("/:artistId/is-favorited", validateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { artistId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isFavorited = user.favoriteArtists.includes(artistId);
+    res.json({ isFavorited: isFavorited });
+  } catch (error) {
+    console.error("Error checking favorite status:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Create - POST - /artists
 
 // Show - GET - /artists/:id
@@ -139,28 +177,20 @@ router.get("/:id", async (req, res) => {
 // Update - PUT - /artists/:id
 
 // Toggle favorite artist
-router.post("/favorite", async (req, res) => {
-  console.log("Session ID in favorite artist:", req.session);
-  // Ensure the user is logged in
-  if (!req.session.user) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-
-  // Use the user id from the session
+// Toggle favorite artist
+router.post("/favorite", validateJWT, async (req, res) => {
   const { artistId } = req.body;
-  const userId = req.session.user.id;
+  const userId = req.user.userId; // Adjusted from req.user.id to req.user.userId
 
   try {
     const user = await User.findById(userId);
     if (!user) {
-      throw new Error("User not found");
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // If artist is not already favorited, add to favorites
     const index = user.favoriteArtists.indexOf(artistId);
     if (index === -1) {
       user.favoriteArtists.push(artistId);
-      // If artist is already favorited, remove from favorites
     } else {
       user.favoriteArtists.splice(index, 1);
     }
@@ -171,7 +201,6 @@ router.post("/favorite", async (req, res) => {
       favorites: user.favoriteArtists,
     });
   } catch (error) {
-    console.error("Error toggling favorite artist:", error);
     res.status(500).json({ message: error.message });
   }
 });
