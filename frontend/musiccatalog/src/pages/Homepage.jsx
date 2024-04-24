@@ -17,10 +17,10 @@ const Homepage = () => {
       .then((jsonRes) => setHomeData(jsonRes));
   }, []);
 
-  let newAlbums = homeData[1];
-  let topTracks = homeData[2];
-  console.log(newAlbums);
-  console.log(topTracks);
+  // let newAlbums = homeData[1];
+  // let topTracks = homeData[2];
+  // console.log(newAlbums);
+  // console.log(topTracks);
 
   return (
     <div>
@@ -29,7 +29,7 @@ const Homepage = () => {
         <Artists />
       </div>
 
-      <div>
+      {/* <div>
         <div>
             <h1>New Albums</h1>
             <Link to={`/albums`}>View More Albums</Link>
@@ -37,7 +37,7 @@ const Homepage = () => {
         <Albums albums={newAlbums} />
       </div>
 
-<<<<<<< HEAD
+
       <div>
         <div>
             <h1>Top Songs</h1>
@@ -45,9 +45,9 @@ const Homepage = () => {
         </div>
         <Songs songs={topTracks} />
       </div>
-      
-=======
-      <ul>
+       */}
+
+      {/* <ul>
         {newAlbums &&
           newAlbums.map((item, index) => {
             return (
@@ -67,9 +67,9 @@ const Homepage = () => {
           topTracks.map((item, index) => {
             return <li>{item.track.name}</li>;
           })}
-      </ul>
+      </ul> */}
 
->>>>>>> ba710d609eab69ca19e686a6c73e41721699ad5e
+ {/* //ba710d609eab69ca19e686a6c73e41721699ad5e */}
     </div>
   );
 };
