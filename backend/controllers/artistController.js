@@ -177,10 +177,9 @@ router.get("/:id", async (req, res) => {
 // Update - PUT - /artists/:id
 
 // Toggle favorite artist
-// Toggle favorite artist
 router.post("/favorite", validateJWT, async (req, res) => {
   const { artistId } = req.body;
-  const userId = req.user.userId; // Adjusted from req.user.id to req.user.userId
+  const userId = req.user.userId; // Use the correct property to access the user ID
 
   try {
     const user = await User.findById(userId);
@@ -189,18 +188,22 @@ router.post("/favorite", validateJWT, async (req, res) => {
     }
 
     const index = user.favoriteArtists.indexOf(artistId);
-    if (index === -1) {
-      user.favoriteArtists.push(artistId);
-    } else {
+    const isFavorited = index !== -1;
+    if (isFavorited) {
+      // If already favorited, remove it
       user.favoriteArtists.splice(index, 1);
+    } else {
+      // Otherwise, add to favorites
+      user.favoriteArtists.push(artistId);
     }
 
     await user.save();
     res.status(200).json({
       message: "Favorite artists updated successfully",
-      favorites: user.favoriteArtists,
+      isFavorited: !isFavorited, // This should reflect the new state
     });
   } catch (error) {
+    console.error("Error toggling favorite artist:", error);
     res.status(500).json({ message: error.message });
   }
 });
