@@ -10,6 +10,7 @@ import Album from "./pages/ShowAlbum";
 import Albums from "./pages/ViewAlbums";
 import SingleArtist from "./components/SingleArtist";
 
+
 function App() {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
@@ -19,6 +20,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup setUser={setUser} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
