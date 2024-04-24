@@ -13,7 +13,6 @@ const Search = () => {
 
     let searchTermSplit = searchTerm.split(" ")
     let searchTermUrl = searchTermSplit.join("+")
-    console.log(searchTermUrl)
 
     useEffect(() => {
         fetch(`http://localhost:3001/search/${searchTermUrl}`)
@@ -25,13 +24,9 @@ const Search = () => {
           .then((jsonRes) => setSearch(jsonRes));
       }, [searchTerm]);
 
-    console.log(search)
-    let searchedArtists = search.artists.items
-    console.log(searchedArtists)
-    let searchedAlbums = search.albums.items
-     console.log(searchedAlbums)
-    let searchedTracks = search.tracks.items
-    console.log(searchedTracks)
+    let searchedArtists = search?.artists.items
+    let searchedAlbums = search?.albums.items
+    let searchedTracks = search?.tracks.items
 
     return (
         <div>
@@ -46,14 +41,14 @@ const Search = () => {
             <br></br>
 
             <h2 className="text-slate-50 text-2xl">Albums</h2>
-            {/* components that will fomat the list of albums */}
+            components that will fomat the list of albums
             <br></br>
             <Albums albums={searchedAlbums} />
 
             <br></br>
 
             <h2 className="text-slate-50 text-2xl">Tracks</h2>
-            {/* components that will fomat the list of songs */}
+            components that will fomat the list of songs
             <br></br>
             <Songs songs={searchedTracks} />
             

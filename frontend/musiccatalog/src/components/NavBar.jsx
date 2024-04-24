@@ -10,7 +10,6 @@ const NavBar = () => {
     setSearchTerm(event.target.value);
   };
   const performSearch = () => {
-    console.log('Search Term:', searchTerm);
     navigate(`/search/${searchTerm}`);
   };
   return (
@@ -31,7 +30,7 @@ const NavBar = () => {
       <div className="nav-links">
         <Link to={"/artists"} className="hover:text-indigo-600">Artists</Link>
         <Link to={"/albums"} className="hover:text-indigo-600">Albums</Link>
-        <Link to={"/genres"} className="hover:text-indigo-600">Genres</Link>
+        <Link to={"/"} className="hover:text-indigo-600">Top Songs</Link>
       </div>
       <div className="profile-section">
         {isAuthenticated ? (
