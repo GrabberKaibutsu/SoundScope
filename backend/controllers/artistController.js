@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Artist = require("../models/artist");
+const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 // Require DB connection
 const db = require("../models");
@@ -13,12 +15,30 @@ async function fetch(url, options) {
   return fetch(url, options);
 }
 
+// Middleware for validating JWT tokens
+const validateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        console.error("JWT Error:", err);
+        return res.status(403).json({ message: "Invalid token" });
+      }
+      req.user = decoded;
+      next();
+    });
+  } else {
+    res.status(401).json({ message: "No token provided" });
+  }
+};
+
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
   // Get Spotify client ID
-  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const clientId = process.env.CLIENT_ID;
   // Get Spotify client secret from environment variables
-  const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+  const clientSecret = process.env.CLIENT_SECRET;
   // Define the token URL
   const tokenUrl = "https://accounts.spotify.com/api/token";
   // Uses buffer to encode the client ID and client secret in base64
@@ -51,7 +71,6 @@ async function getSpotifyAccessToken() {
 
 // Function to fetch artist data from Spotify API
 async function fetchArtistsFromSpotify() {
-
   // Get Spotify access token using the getSpotifyAccessToken function
   const token = await getSpotifyAccessToken();
   // Get Spotify API base URL and define the endpoint for the search query
@@ -121,6 +140,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET Check to see if an artist is favorited for a user
+router.get("/:artistId/is-favorited", validateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { artistId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isFavorited = user.favoriteArtists.includes(artistId);
+    res.json({ isFavorited: isFavorited });
+  } catch (error) {
+    console.error("Error checking favorite status:", error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Create - POST - /artists
 
 // Show - GET - /artists/:id
@@ -138,6 +175,35 @@ router.get("/:id", async (req, res) => {
 });
 
 // Update - PUT - /artists/:id
+
+// Toggle favorite artist
+// Toggle favorite artist
+router.post("/favorite", validateJWT, async (req, res) => {
+  const { artistId } = req.body;
+  const userId = req.user.userId; // Adjusted from req.user.id to req.user.userId
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const index = user.favoriteArtists.indexOf(artistId);
+    if (index === -1) {
+      user.favoriteArtists.push(artistId);
+    } else {
+      user.favoriteArtists.splice(index, 1);
+    }
+
+    await user.save();
+    res.status(200).json({
+      message: "Favorite artists updated successfully",
+      favorites: user.favoriteArtists,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 // Delete - DELETE - /artists/:id
 

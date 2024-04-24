@@ -1,11 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 const Login = (props) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+
+  const navigate = useNavigate();
+
 
   const handleLogin = async () => {
     try {
@@ -17,20 +23,28 @@ const Login = (props) => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json(); // Parse the response to use in both success and error cases
 
+      const data = await response.json();
       if (!response.ok) {
-        console.error("Login failed:", data); // Use 'data' to log the error
-        alert("Login failed: " + (data.message || "Unknown error")); // Provide a fallback message
+        console.error("Login failed:", data);
+        alert("Login failed: " + (data.message || "Unknown error"));
         return;
       }
 
-      props.setUser(data.user); // Set user state
-      console.log("User set in login:", data.user); // Check if this logs correctly
-      localStorage.setItem("user", JSON.stringify(data.user)); // Persist the login token
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      } else {
+        console.error("Token not received");
+      }
+
+      props.setUser(data.user);
+      console.log("User set in login:", data.user, "Token:", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/");
     } catch (error) {
-      console.error("Network error:", error); // Log network or parsing errors
-      alert("Network error: " + error.message); // Show a user-friendly error message
+      console.error("Network error:", error);
+      alert("Network error: " + error.message);
+
     }
   };
 
@@ -60,6 +74,8 @@ const Login = (props) => {
             type="text"
             name="email"
             placeholder="Email"
+            autoComplete="email"
+
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"

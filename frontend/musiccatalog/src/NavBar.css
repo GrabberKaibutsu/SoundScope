@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to a new line if needed */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.navbar div {
+    display: flex;
+    align-items: center;
+}
+
+.home-link, .search-section, .nav-links, .profile-section {
+    margin-right: 20px; /* Ensures spacing between sections */
+}
+
+.search-section input, .search-section button {
+    margin-right: 5px; /* Spacing within the search section */
+}
+
+.navbar a, .navbar button {
+    color: white;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-links a {
+    margin-right: 15px; 
+}
+
+.nav-links a:last-child {
+    margin-right: 0; 
+}
+
+
+
+
+@media (max-width: 768px) {
+    .nav-links, .profile-section {
+        flex-basis: 100%; /* Forces new line for smaller screens */
+        justify-content: center; /* Centers items on new line */
+    }
+}
+
