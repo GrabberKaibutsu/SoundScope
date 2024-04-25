@@ -10,6 +10,7 @@ import Search from "./pages/Search"
 import Home from "./pages/Homepage";
 import Album from "./pages/ShowAlbum";
 import Albums from "./pages/Albums";
+import Artist from "./pages/Artist";
 
 import SingleArtist from "./components/SingleArtist";
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/album/:id" element={<Album />} />
           <Route path="/albums" element={<Albums />} />
+          <Route path="/artists" element={<Artist />} />
           <Route path="/artist/:id" element={<SingleArtist />} />
           <Route path="/search/:searchTerm" element={<Search />}/>
         </Routes>
