@@ -1,66 +1,93 @@
-const express = require('express');
-const fetch = require('node-fetch');
+const express = require("express");
 const router = express.Router();
+const Songs = require("../models/songsList");
+const db = require("../models");
 require('dotenv').config();
 
-const CLIENT_ID = process.env.Client_ID;
-const CLIENT_SECRET = process.env.Client_Secret;
+const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 
-let globalToken = ''; // Initialize a variable to store the access token globally
-
-// Function to fetch a new access token
-async function fetchAccessToken() {
-    const authParameters = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
-    };
-
-    const response = await fetch('https://accounts.spotify.com/api/token', authParameters);
-    const data = await response.json();
-    globalToken = data.access_token; // Store the access token globally
+// Dynamic import of fetch to handle ES Modules
+async function fetch(url, options) {
+  const { default: fetch } = await import("node-fetch");
+  return fetch(url, options);
 }
 
-// Middleware to ensure token is available on every request
-router.use(async (req, res, next) => {
-    if (!globalToken) {
-        await fetchAccessToken();
-    }
-    next();
+// Function to get Spotify access token
+async function getSpotifyAccessToken() {
+  const clientId = process.env.CLIENT_ID;
+  const clientSecret = process.env.CLIENT_SECRET;
+  const tokenUrl = "https://accounts.spotify.com/api/token";
+  const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
+
+  const response = await fetch(tokenUrl, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "grant_type=client_credentials",
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`Spotify token request failed: ${data.error_description}`);
+  }
+  return data.access_token;
+}
+
+// Fetch new releases (trending songs)
+async function fetchNewReleases() {
+  const token = await getSpotifyAccessToken();
+  const url = `${spotifyAPIBaseURL}/browse/new-releases?market=US&limit=20`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Spotify API request failed: ${response.statusText}`);
+  }
+  return await response.json();
+}
+
+// Fetch single song details
+async function fetchSongDetails(songId) {
+  const token = await getSpotifyAccessToken();
+  const url = `${spotifyAPIBaseURL}/tracks/${songId}`;
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Spotify API request failed: ${response.statusText}`);
+  }
+  return await response.json();
+}
+
+// Routes
+router.get("/trending", async (req, res) => {
+  try {
+    const newReleases = await fetchNewReleases();
+    res.json(newReleases.albums.items);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Get trending songs
-router.get('/trending', async (req, res) => {
-    const url = 'https://api.spotify.com/v1/browse/new-releases';
-    try {
-        const response = await fetch(url, {
-            headers: { 'Authorization': `Bearer ${globalToken}` }
-        });
-        if (!response.ok) throw new Error('Failed to fetch trending songs.');
-        const data = await response.json();
-        res.json(data);
-    } catch (error) {
-        console.error('Error fetching trending songs:', error);
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// Get single song details
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    const url = `https://api.spotify.com/v1/tracks/${id}`;
-    try {
-        const response = await fetch(url, {
-            headers: { 'Authorization': `Bearer ${globalToken}` }
-        });
-        if (!response.ok) throw new Error('Failed to fetch song details.');
-        const data = await response.json();
-        res.json(data);
-    } catch (error) {
-        console.error('Error fetching song details:', error);
-        res.status(500).json({ error: error.message });
-    }
+router.get("/:id", async (req, res) => {
+  try {
+    const songDetails = await fetchSongDetails(req.params.id);
+    res.json(songDetails);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;
+
+
 

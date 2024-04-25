@@ -19,10 +19,10 @@ const Homepage = () => {
   }, []);
 
   // displays the top 5 for albums and tracks
-  let newAlbums = homeData[1];
-  let topTracks = homeData[2];
+  //let newAlbums = homeData[1];
+ // let topTracks = homeData[2];
   // console.log(newAlbums);
-  console.log(topTracks);
+ //console.log(topTracks);
 
   return (
     <div>
@@ -46,7 +46,7 @@ const Homepage = () => {
         <br></br>
         {/* components that will fomat the list of albums */}
         <div>
-          <Albums albums={newAlbums} />
+          {/* //<Albums albums={newAlbums} /> */}
         </div>
       </div>
 
@@ -60,7 +60,7 @@ const Homepage = () => {
         </div>
         <br></br>
         {/* components that will fomat the list of songs */}
-        <Songs songs={topTracks} />
+       {/* // <Songs songs={topTracks} /> */}
       </div>
       
     </div>
