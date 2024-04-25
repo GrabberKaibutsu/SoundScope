@@ -27,8 +27,14 @@ const Login = (props) => {
         return;
       }
 
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      } else {
+        console.error("Token not received");
+      }
+
       props.setUser(data.user);
-      console.log("User set in login:", data.user);
+      console.log("User set in login:", data.user, "Token:", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/");
     } catch (error) {
