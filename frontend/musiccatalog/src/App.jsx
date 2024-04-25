@@ -12,8 +12,6 @@ import Album from "./pages/ShowAlbum";
 import Albums from "./pages/Albums";
 
 import SingleArtist from "./components/SingleArtist";
-import Genre from "./pages/Genre"
-import ShowGenre from"./pages/ShowGenre"
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -31,8 +29,6 @@ function App() {
           <Route path="/album/:id" element={<Album />} />
           <Route path="/albums" element={<Albums />} />
           <Route path="/artist/:id" element={<SingleArtist />} />
-          <Route path="/genres" element={<Genre />}/>
-          <Route path="/genres/:genre" element={<ShowGenre />}/>
           <Route path="/search/:searchTerm" element={<Search />}/>
         </Routes>
 
