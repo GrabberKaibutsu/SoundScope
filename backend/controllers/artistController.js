@@ -3,35 +3,18 @@ const router = express.Router();
 const Artist = require("../models/artist");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const validateJWT = require("./validateJWT");
 
 // Require DB connection
 const db = require("../models");
 
 const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 
-// Function to fetch data from Spotify API - In place of node fetch - Had an error with node-fetch and used the following code to replace it based on internet search
+// Set up node fetch for making requests to Spotify API
 async function fetch(url, options) {
   const { default: fetch } = await import("node-fetch");
   return fetch(url, options);
 }
-
-// Middleware for validating JWT tokens
-const validateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        console.error("JWT Error:", err);
-        return res.status(403).json({ message: "Invalid token" });
-      }
-      req.user = decoded;
-      next();
-    });
-  } else {
-    res.status(401).json({ message: "No token provided" });
-  }
-};
 
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
@@ -177,7 +160,6 @@ router.get("/:id", async (req, res) => {
 // Update - PUT - /artists/:id
 
 // Toggle favorite artist
-// Toggle favorite artist
 router.post("/favorite", validateJWT, async (req, res) => {
   const { artistId } = req.body;
   const userId = req.user.userId;
@@ -210,5 +192,6 @@ router.post("/favorite", validateJWT, async (req, res) => {
 });
 
 // Delete - DELETE - /artists/:id
+// Toggle Favorite Artist above deletes the favorited artist from the user's favoriteArtists array
 
 module.exports = router;
