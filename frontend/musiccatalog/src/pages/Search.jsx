@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Albums from "../components/AlbumHome"
+import Albums from "../components/HomeAlbums"
 import Songs from "../components/SearchedSongs"
 import Artists from "../components/SearchArtists"
 

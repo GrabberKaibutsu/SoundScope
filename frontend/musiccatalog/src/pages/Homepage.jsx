@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Artists from "../components/Artists";
-import Albums from "../components/AlbumHome"
-import Songs from "../components/Songs"
+import Artists from "../components/HomeArtists";
+import Albums from "../components/HomeAlbums"
+import Songs from "../components/HomeSongs"
 import { Link } from "react-router-dom";
 
 const Homepage = () => {
@@ -18,7 +18,9 @@ const Homepage = () => {
       .then((jsonRes) => setHomeData(jsonRes));
   }, []);
 
-  // displays the top 5 for albums and tracks
+  // displays the top 5 for artists, albums, and tracks
+  let topArtists = homeData[0];
+  console.log(topArtists)
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
 
@@ -30,7 +32,7 @@ const Homepage = () => {
           <Link to={`/artists`} className="text-slate-50 hover:text-indigo-600" >View More Artists</Link>
         </div>
         <br></br>
-        <Artists />
+        <Artists artists={topArtists}/>
       </div>
 
       <br></br>
