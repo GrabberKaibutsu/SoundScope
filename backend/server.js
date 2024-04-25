@@ -82,10 +82,6 @@ app.get("/", (req, res) => {
 });
 
 // Start the server
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
 //NEW CODE FOR CONSOLE LOGGING THE TOKEN
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
@@ -109,11 +105,6 @@ async function getSpotifyAccessToken() {
   console.log("Fetched Spotify Access Token:", data.access_token);
   return data.access_token;
 }
-
-
-
-
-
 
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);

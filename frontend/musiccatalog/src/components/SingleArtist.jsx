@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import ReviewForm from './ReviewForm';
+
+function ArtistDetail({ artist }) {
+  return (
+    <div>
+      <h2>{artist.name}</h2>
+      <p>{artist.description}</p>
+      <ReviewForm itemId={artist._id} itemType="artist" userId={user._id} />
+    </div>
+  );
+}
+
+
+
+
 const SingleArtist = () => {
   const [artist, setArtist] = useState(null);
   const [loading, setLoading] = useState(true);
