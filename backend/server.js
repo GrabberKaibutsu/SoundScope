@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const session = require("express-session");
 const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
 const morgan = require("morgan");
@@ -44,18 +43,6 @@ app.options("*", cors());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: false, // Set to true if you're using HTTPS
-      sameSite: "none",
-      maxAge: 1000 * 60 * 60 * 24, // 24 hours
-    },
-  })
-);
 
 app.use(morgan("dev"));
 
