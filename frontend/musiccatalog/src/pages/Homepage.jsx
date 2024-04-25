@@ -36,8 +36,8 @@ const Homepage = () => {
         </div>
         <Albums albums={newAlbums} />
       </div>
+      <<<<<<< HEAD
 
-<<<<<<< HEAD
       <div>
         <div>
             <h1>Top Songs</h1>
@@ -45,8 +45,7 @@ const Homepage = () => {
         </div>
         <Songs songs={topTracks} />
       </div>
-      
-=======
+      =======
       <ul>
         {newAlbums &&
           newAlbums.map((item, index) => {
@@ -70,6 +69,7 @@ const Homepage = () => {
       </ul>
 
 >>>>>>> ba710d609eab69ca19e686a6c73e41721699ad5e
+
     </div>
   );
 };
