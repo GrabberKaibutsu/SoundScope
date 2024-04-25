@@ -9,7 +9,7 @@ function SongsList() {
     fetch('/api/songs/trending')
       .then(response => response.json())
       .then(data => {
-        setSongs(data.albums.items); // Does this match what's expected on the backend?
+        setSongs(data.albums.items); 
         setLoading(false);
       })
       .catch(err => {

@@ -12,6 +12,8 @@ async function fetch(url, options) {
   return fetch(url, options);
 }
 
+let globalToken = '';
+
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
   const clientId = process.env.CLIENT_ID;
@@ -31,7 +33,9 @@ async function getSpotifyAccessToken() {
   if (!response.ok) {
     throw new Error(`Spotify token request failed: ${data.error_description}`);
   }
-  return data.access_token;
+  globalToken = data.access_token;
+  console.log("Fetched Spotify Access Token:", globalToken);
+  return globalToken;
 }
 
 // Fetch new releases (trending songs)
@@ -69,14 +73,37 @@ async function fetchSongDetails(songId) {
 }
 
 // Routes
-router.get("/trending", async (req, res) => {
-  try {
-    const newReleases = await fetchNewReleases();
-    res.json(newReleases.albums.items);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+// router.get("/trending", async (req, res) => {
+//   try {
+//     const newReleases = await fetchNewReleases();
+//     res.json(newReleases.albums.items);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+router.get('/trending', async (req, res) => {
+    if (!globalToken) {
+        await fetchAccessToken();
+    }
+    console.log("Using Spotify Access Token:", globalToken); // Log the token
+
+    const url = 'https://api.spotify.com/v1/browse/new-releases';
+    try {
+        const response = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${globalToken}` }
+        });
+        if (!response.ok) throw new Error('Failed to fetch trending songs.');
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching trending songs:', error);
+        res.status(500).json({ error: error.message });
+    }
 });
+
+
+
 
 router.get("/:id", async (req, res) => {
   try {

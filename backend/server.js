@@ -82,6 +82,45 @@ app.get("/", (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+//NEW CODE FOR CONSOLE LOGGING THE TOKEN
+// Function to get Spotify access token
+async function getSpotifyAccessToken() {
+  const clientId = process.env.CLIENT_ID;
+  const clientSecret = process.env.CLIENT_SECRET;
+  const tokenUrl = "https://accounts.spotify.com/api/token";
+  const credentials = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
+
+  const response = await fetch(tokenUrl, {
+    method: "POST",
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "grant_type=client_credentials",
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(`Spotify token request failed: ${data.error_description}`);
+  }
+  console.log("Fetched Spotify Access Token:", data.access_token);
+  return data.access_token;
+}
+
+
+
+
+
+
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  try {
+      const token = await getSpotifyAccessToken();
+      console.log("Startup Fetch Spotify Access Token:", token);
+  } catch (error) {
+      console.error("Failed to fetch token on startup:", error);
+  }
 });
