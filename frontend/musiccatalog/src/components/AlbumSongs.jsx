@@ -4,10 +4,10 @@ import React from 'react'
 const AlbumSongs = ({songs}) => {
   return (
     <div className="text-slate-50">
-        <ul className="grid grid-cols-2 gap-2">
+        <ul className="grid gap-x-20 gap-y-4 grid-cols-2 hover:list-disc">
             {songs && songs.map((item, index) => {
                 return (
-                    <li className=" flex justify-start">
+                    <li className="flex justify-start">
                         {item?.name}
                     </li>
                 );

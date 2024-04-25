@@ -13,6 +13,7 @@ import Albums from "./pages/Albums";
 
 import SingleArtist from "./components/SingleArtist";
 
+
 function App() {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");

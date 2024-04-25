@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 // Register a new user
 router.post("/register", async (req, res) => {
@@ -14,15 +16,24 @@ router.post("/register", async (req, res) => {
       password: hashedPassword,
     });
     await newUser.save();
-    req.session.user = { id: newUser._id, username: newUser.username }; // Store user info in session
-    res
-      .status(201)
-      .json({ message: "User registered successfully", userId: newUser._id });
+
+    // Generate JWT
+    const token = jwt.sign(
+      { userId: newUser._id, username: newUser.username },
+      process.env.JWT_SECRET
+    );
+
+    res.status(201).json({
+      message: "User registered successfully",
+      userId: newUser._id,
+      token: token,
+    });
   } catch (error) {
     console.error("Registration error:", error);
-    res
-      .status(500)
-      .json({ message: "Internal Server Error", error: error.message });
+    res.status(500).json({
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 });
 
@@ -34,23 +45,29 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-    req.session.user = { id: user._id, username: user.username }; // Store user info in session
-    console.log("This is coming from the login route", req.session);
+
+
+    // Generate JWT
+    const token = jwt.sign(
+      { userId: user._id, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+
     res.json({
       message: "Logged in successfully",
-      user: { id: user._id, username: user.username }, // Send user data to the client
+      user: { id: user._id, username: user.username },
+      token: token,
     });
-    console.log("INSIDE TRY: Session ID after setting user:", req.sessionID);
-    console.log("INSIDE TRY: Cookie sent:", res.getHeader("Set-Cookie"));
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-  console.log("END: Session ID after setting user:", req.sessionID);
-  console.log("END: Cookie sent:", res.getHeader("Set-Cookie"));
 });
 
 // Logout route

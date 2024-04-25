@@ -35,20 +35,21 @@ const Search = () => {
             <br></br>
 
             <h2 className="text-slate-50 text-2xl">Artists</h2>
+            {/* components that will fomat the list of artists */}
             <br></br>
             <Artists artists={searchedArtists} />
 
             <br></br>
 
             <h2 className="text-slate-50 text-2xl">Albums</h2>
-            components that will fomat the list of albums
+            {/* components that will fomat the list of albums */}
             <br></br>
             <Albums albums={searchedAlbums} />
 
             <br></br>
 
             <h2 className="text-slate-50 text-2xl">Tracks</h2>
-            components that will fomat the list of songs
+            {/* components that will fomat the list of songs */}
             <br></br>
             <Songs songs={searchedTracks} />
             
