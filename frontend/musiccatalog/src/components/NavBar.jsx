@@ -51,12 +51,17 @@ const NavBar = () => {
             </Link>
           </>
         ) : (
+          <>
           <Link to={"/login"} className="hover:text-indigo-600">
             Login
           </Link>
-        )}
-      </div>
-    </nav>
-  );
+          <Link to={"/signup"} className="hover:text-indigo-600 ml-2">
+            Sign Up
+          </Link>
+        </>
+      )}
+    </div>
+  </nav>
+);
 };
 export default NavBar;
