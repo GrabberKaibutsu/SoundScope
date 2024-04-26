@@ -11,29 +11,29 @@ require('dotenv').config()
  //const db = require("../models");
 
 
-const CLIENT_ID = process.env.Client_ID
-const CLIENT_SECRET = process.env.Client_Secret
-
-let token = "Your_Spotify_Access_Token";
-
-let authParameters = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
-}
-
-// - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
-
-fetch('https://accounts.spotify.com/api/token', authParameters)
-.then(result => result.json())
-.then(data=> 
-  // console.log(data)
-  token = data.access_token
-)
-// - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
-
+ const CLIENT_ID = process.env.CLIENT_ID
+ const CLIENT_SECRET = process.env.CLIENT_SECRET
+ 
+ let token = "Your_Spotify_Access_Token";
+ 
+ let authParameters = {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+   },
+   body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+ }
+ 
+ // - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
+ 
+ fetch('https://accounts.spotify.com/api/token', authParameters)
+ .then(result => result.json())
+ .then(data=> 
+   // console.log(data)
+   token = data.access_token
+ )
+ // - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
+ 
 async function fetchAlbums(){
 
   const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=30"
@@ -101,11 +101,13 @@ async function fetchAlbum(albumID){
 // Index - GET - /albums
 router.get("/", async (req, res) => {
   try {
+
+    console.log(token)
     
     // Fetch albums from Spotify
     const albums = await fetchAlbums();
     // Send the response
-    res.json(albums);
+    res.send(albums);
 
   } catch (error) {
     // Handle error

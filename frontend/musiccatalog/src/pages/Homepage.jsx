@@ -61,7 +61,7 @@ const Homepage = () => {
         {/* components that will fomat the list of songs */}
         <Songs songs={topTracks} />
       </div>
-      <ul>
+      {/* <ul>
         {newAlbums &&
           newAlbums.map((item, index) => {
             return (
@@ -81,7 +81,7 @@ const Homepage = () => {
           topTracks.map((item, index) => {
             return <li>{item.track.name}</li>;
           })}
-      </ul>
+      </ul> */}
 
 
     </div>

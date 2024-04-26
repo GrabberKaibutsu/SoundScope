@@ -3,8 +3,8 @@ const router = express.Router();
 
 require('dotenv').config()
 
-const CLIENT_ID = process.env.Client_ID
-const CLIENT_SECRET = process.env.Client_Secret
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
 
 let token = "Your_Spotify_Access_Token";
 
