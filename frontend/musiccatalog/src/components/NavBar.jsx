@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext'; //new code 
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; //new code
 const NavBar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const { isAuthenticated, user } = useContext(AuthContext); //new code used to discern context
   const navigate = useNavigate();
 
@@ -10,13 +10,14 @@ const NavBar = () => {
     setSearchTerm(event.target.value);
   };
   const performSearch = () => {
-    console.log('Search Term:', searchTerm);
     navigate(`/search/${searchTerm}`);
   };
   return (
     <nav className="navbar">
       <div className="home-link">
-        <Link to={"/"} className="hover:text-indigo-600">Home</Link>
+        <Link to={"/"} className="hover:text-indigo-600">
+          Home
+        </Link>
       </div>
       <div className="search-section">
         <input
@@ -26,21 +27,33 @@ const NavBar = () => {
           onChange={handleSearchChange}
           className="text-stone-800"
         />
-        <button type="button" onClick={performSearch}>Search</button>
+        <button type="button" onClick={performSearch}>
+          Search
+        </button>
       </div>
       <div className="nav-links">
-        <Link to={"/artists"} className="hover:text-indigo-600">Artists</Link>
-        <Link to={"/albums"} className="hover:text-indigo-600">Albums</Link>
-        <Link to={"/genres"} className="hover:text-indigo-600">Genres</Link>
+        <Link to={"/artists"} className="hover:text-indigo-600">
+          Artists
+        </Link>
+        <Link to={"/albums"} className="hover:text-indigo-600">
+          Albums
+        </Link>
+        <Link to={"/"} className="hover:text-indigo-600">
+          Top Songs
+        </Link>
       </div>
       <div className="profile-section">
         {isAuthenticated ? (
           <>
-            <span>Welcome, {user.name}</span>
-            <Link to={"/logout"} className="hover:text-indigo-600">Logout</Link>
+            <span>Welcome, {user.username}</span>
+            <Link to={"/logout"} className="hover:text-indigo-600">
+              Logout
+            </Link>
           </>
         ) : (
-          <Link to={"/login"} className="hover:text-indigo-600">Login</Link>
+          <Link to={"/login"} className="hover:text-indigo-600">
+            Login
+          </Link>
         )}
       </div>
     </nav>

@@ -10,9 +10,10 @@ import Search from "./pages/Search"
 import Home from "./pages/Homepage";
 import Album from "./pages/ShowAlbum";
 import Albums from "./pages/Albums";
+import Artist from "./pages/Artist";
 
 import SingleArtist from "./components/SingleArtist";
-import Genre from "./pages/Genre"
+// import Genre from "./pages/Genre"
 import ShowGenre from"./pages/ShowGenre"
 import SongsList from './pages/SongsList';
 import SingleSong from './pages/SingleSong';
@@ -32,9 +33,8 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/album/:id" element={<Album />} />
           <Route path="/albums" element={<Albums />} />
+          <Route path="/artists" element={<Artist />} />
           <Route path="/artist/:id" element={<SingleArtist />} />
-          <Route path="/genres" element={<Genre />}/>
-          <Route path="/genres/:genre" element={<ShowGenre />}/>
           <Route path="/search/:searchTerm" element={<Search />}/>
           <Route path="/songs" element={<SongsList />} />
         <Route path="/songs/:id" element={<SingleSong />} />

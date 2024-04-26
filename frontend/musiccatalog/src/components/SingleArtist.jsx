@@ -24,12 +24,34 @@ const SingleArtist = () => {
   const [isFavorited, setIsFavorited] = useState(false);
 
   useEffect(() => {
-    const fetchArtist = async () => {
+    const fetchArtistAndFavoriteStatus = async () => {
+      setLoading(true);
       try {
-        const response = await fetch(`http://localhost:3001/artists/${id}`);
-        if (!response.ok) throw new Error("Artist fetch failed");
-        const data = await response.json();
-        setArtist(data);
+        const artistResponse = await fetch(
+          `http://localhost:3001/artists/${id}`
+        );
+        if (!artistResponse.ok) throw new Error("Artist fetch failed");
+        const artistData = await artistResponse.json();
+
+        const token = localStorage.getItem("token");
+        const favoriteResponse = await fetch(
+          `http://localhost:3001/artists/${id}/is-favorited`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (favoriteResponse.ok) {
+          const favoriteData = await favoriteResponse.json();
+          setIsFavorited(favoriteData.isFavorited);
+        } else {
+          console.log("Failed to fetch favorite status");
+        }
+
+        setArtist(artistData);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -37,30 +59,33 @@ const SingleArtist = () => {
       }
     };
 
-    fetchArtist();
+    fetchArtistAndFavoriteStatus();
   }, [id]);
 
   const toggleFavorite = async () => {
     setIsFavorited(!isFavorited);
+
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch("http://localhost:3001/artists/favorite", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          artistId: id, // Assuming 'id' is the artist's ID from `useParams`
+          artistId: id,
         }),
-        credentials: "include", // Include cookies for session authentication
       });
+      console.log("Made it past the fetch");
       const result = await response.json();
-
       if (!response.ok) {
         throw new Error(result.message || "Failed to toggle favorite");
       }
       // Optionally, sync the state with the actual result from the server
       setIsFavorited(result.isFavorited);
+      console.log("Favorite toggled successfully");
     } catch (error) {
       console.error("Failed to toggle favorite:", error);
       // Revert UI change if there was a problem with the request

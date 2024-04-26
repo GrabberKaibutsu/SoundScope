@@ -21,8 +21,6 @@ const Homepage = () => {
   // displays the top 5 for albums and tracks
   //let newAlbums = homeData[1];
  // let topTracks = homeData[2];
-  // console.log(newAlbums);
- //console.log(topTracks);
 
   return (
     <div>
