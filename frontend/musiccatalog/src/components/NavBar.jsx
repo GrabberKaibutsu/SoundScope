@@ -1,17 +1,26 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext"; //new code
+import { AuthProvider } from "../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
+
 const NavBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { isAuthenticated, user } = useContext(AuthContext); //new code used to discern context
+  const { isAuthenticated, user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
   const performSearch = () => {
     navigate(`/search/${searchTerm}`);
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login"); // Redirect user to the login page after logout
+  };
+
   return (
     <nav className="navbar">
       <div className="home-link">
@@ -45,25 +54,24 @@ const NavBar = () => {
       <div className="profile-section">
         {isAuthenticated ? (
           <>
-            <span>Welcome, {user.username}</span>
-            <Link to={"/logout"} className="hover:text-indigo-600">
+            <span className="mr-4">Welcome, {user.username}</span>
+            <button onClick={handleLogout} className="hover:text-indigo-600">
               Logout
-            </Link>
+            </button>
           </>
         ) : (
-
           <>
-          <Link to={"/login"} className="hover:text-indigo-600">
-            Login
-          </Link>
-          <Link to={"/signup"} className="hover:text-indigo-600 ml-2">
-            Sign Up
-          </Link>
-        </>
-      )}
-    </div>
-  </nav>
-);
-
+            <Link to={"/login"} className="hover:text-indigo-600">
+              Login
+            </Link>
+            <Link to={"/signup"} className="hover:text-indigo-600 ml-2">
+              Sign Up
+            </Link>
+          </>
+        )}
+      </div>
+    </nav>
+  );
 };
+
 export default NavBar;
