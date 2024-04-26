@@ -20,7 +20,6 @@ const Homepage = () => {
 
   // displays the top 5 for artists, albums, and tracks
   let topArtists = homeData[0];
-  console.log(topArtists)
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
 

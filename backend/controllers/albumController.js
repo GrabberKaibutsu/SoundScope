@@ -3,6 +3,8 @@ const express = require("express");
 const router = express.Router();
 // const fetch = require("node-fetch");
 const Album = require("../models/album");
+const User = require("../models/user");
+const validateJWT = require("./validateJWT");
 require('dotenv').config()
 
  //Require DB connection
@@ -108,6 +110,26 @@ router.get("/", async (req, res) => {
   } catch (error) {
     // Handle error
     res.status(500).json({ error: "Failed to fetch albums from Spotify" });
+  }
+});
+
+// GET album is favorited for user
+router.get("/:albumId/favorited", validateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const albumId = req.params.albumId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isFavorited = user.favoriteAlbums.includes(albumId);
+    res.send({ isFavorited: isFavorited });
+
+
+  } catch (error) {
+    console.error("Error checking favorite status:", error);
+    res.status(500).json({ message: error.message });
   }
 });
 

@@ -6,6 +6,7 @@ const ShowAlbum = () => {
 
     const { id } = useParams();
     const [album, setalbum] = useState(null);
+    const [favorited, setFavorited] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:3001/albums/${id}`)
@@ -15,7 +16,17 @@ const ShowAlbum = () => {
             }
           })
           .then((jsonRes) => setalbum(jsonRes));
-      }, [id]);
+    }, [id]);
+
+    useEffect(() => {
+      fetch(`http://localhost:3001/albums/${id}/favorited`)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+        })
+        .then((jsonRes) => setFavorited(jsonRes));
+  });
 
     return (
         <div>
