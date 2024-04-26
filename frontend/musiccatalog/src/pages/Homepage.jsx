@@ -17,6 +17,7 @@ const Homepage = () => {
       })
       .then((jsonRes) => setHomeData(jsonRes));
   }, []);
+  
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
 
@@ -55,7 +56,7 @@ const Homepage = () => {
         <br></br>
         <Songs songs={topTracks} />
       </div>
-      <ul>
+      {/* <ul>
         {newAlbums &&
           newAlbums.map((item, index) => {
             return (
@@ -75,7 +76,7 @@ const Homepage = () => {
           topTracks.map((item, index) => {
             return <li>{item.track.name}</li>;
           })}
-      </ul>
+          
     </div>
   );
 };

@@ -3,35 +3,37 @@ const express = require("express");
 const router = express.Router();
 // const fetch = require("node-fetch");
 const Album = require("../models/album");
+const User = require("../models/user");
+const validateJWT = require("./validateJWT");
 require('dotenv').config()
 
  //Require DB connection
  //const db = require("../models");
 
 
-const CLIENT_ID = process.env.Client_ID
-const CLIENT_SECRET = process.env.Client_Secret
-
-let token = "Your_Spotify_Access_Token";
-
-let authParameters = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
-}
-
-// - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
-
-fetch('https://accounts.spotify.com/api/token', authParameters)
-.then(result => result.json())
-.then(data=> 
-  // console.log(data)
-  token = data.access_token
-)
-// - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
-
+ const CLIENT_ID = process.env.CLIENT_ID
+ const CLIENT_SECRET = process.env.CLIENT_SECRET
+ 
+ let token = "Your_Spotify_Access_Token";
+ 
+ let authParameters = {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/x-www-form-urlencoded'
+   },
+   body: `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+ }
+ 
+ // - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
+ 
+ fetch('https://accounts.spotify.com/api/token', authParameters)
+ .then(result => result.json())
+ .then(data=> 
+   // console.log(data)
+   token = data.access_token
+ )
+ // - [ ] https://www.youtube.com/watch?v=1PWDxgqLmDA
+ 
 async function fetchAlbums(){
 
   const endpoint = "https://api.spotify.com/v1/browse/new-releases?limit=30"
@@ -99,15 +101,37 @@ async function fetchAlbum(albumID){
 // Index - GET - /albums
 router.get("/", async (req, res) => {
   try {
+
+    console.log(token)
     
     // Fetch albums from Spotify
     const albums = await fetchAlbums();
     // Send the response
-    res.json(albums);
+    res.send(albums);
 
   } catch (error) {
     // Handle error
     res.status(500).json({ error: "Failed to fetch albums from Spotify" });
+  }
+});
+
+// GET album is favorited for user
+router.get("/:albumId/favorited", validateJWT, async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const albumId = req.params.albumId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isFavorited = user.favoriteAlbums.includes(albumId);
+    res.send({ isFavorited: isFavorited });
+
+
+  } catch (error) {
+    console.error("Error checking favorite status:", error);
+    res.status(500).json({ message: error.message });
   }
 });
 
