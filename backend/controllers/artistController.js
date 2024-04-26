@@ -53,11 +53,11 @@ async function getSpotifyAccessToken() {
 }
 
 // Function to fetch artist data from Spotify API
-async function fetchArtistsFromSpotify() {
+async function fetchArtistsFromSpotify(limit = 5) {
   // Get Spotify access token using the getSpotifyAccessToken function
   const token = await getSpotifyAccessToken();
   // Get Spotify API base URL and define the endpoint for the search query
-  const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&market=US&limit=20`;
+  const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&market=US&limit=${limit}`;
 
   try {
     // Fetch data from Spotify API
@@ -110,11 +110,24 @@ async function fetchArtistFromSpotify(artistId) {
   }
 }
 
-// Index - GET - /artists
+// Index HOME PAGE - GET - /artists
 router.get("/", async (req, res) => {
   try {
     // Fetch artists from Spotify using the fetchArtistsFromSpotify function
     const artists = await fetchArtistsFromSpotify();
+    // Send the response as JSON with the fetched artists
+    res.json(artists);
+  } catch (error) {
+    // Handle error
+    res.status(500).json({ error: "Failed to fetch artists from Spotify" });
+  }
+});
+
+// Index ARTISTS PAGE - GET - /artists
+router.get("/home", async (req, res) => {
+  try {
+    // Fetch artists from Spotify using the fetchArtistsFromSpotify function
+    const artists = await fetchArtistsFromSpotify(20);
     // Send the response as JSON with the fetched artists
     res.json(artists);
   } catch (error) {

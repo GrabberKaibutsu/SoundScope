@@ -61,7 +61,29 @@ const Homepage = () => {
         {/* components that will fomat the list of songs */}
         <Songs songs={topTracks} />
       </div>
-      
+      <ul>
+        {newAlbums &&
+          newAlbums.map((item, index) => {
+            return (
+              <li>
+                {item.name}
+                <br></br>
+                <img src={item.images[1].url} />
+              </li>
+            );
+          })}
+      </ul>
+
+      <h1>Top Songs</h1>
+
+      <ul>
+        {topTracks &&
+          topTracks.map((item, index) => {
+            return <li>{item.track.name}</li>;
+          })}
+      </ul>
+
+
     </div>
   );
 };

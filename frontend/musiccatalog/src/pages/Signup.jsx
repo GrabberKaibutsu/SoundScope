@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
   const [formData, setFormData] = useState({
+    username: "",
     email: "",
     password: "",
   });
@@ -12,7 +13,7 @@ const Signup = (props) => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users/register", {
+      const response = await fetch("http://localhost:3001/users/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,6 +54,7 @@ const Signup = (props) => {
             type="text"
             name="username"
             placeholder="Username"
+            autoComplete="username"
             value={formData.username}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"
@@ -61,6 +63,7 @@ const Signup = (props) => {
             type="text"
             name="email"
             placeholder="Email"
+            autoComplete="new-email"
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"
@@ -69,6 +72,7 @@ const Signup = (props) => {
             type="password"
             name="password"
             placeholder="Password"
+            autoComplete="new-password"
             value={formData.password}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"
