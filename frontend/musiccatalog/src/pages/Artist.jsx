@@ -33,7 +33,7 @@ const Artist = () => {
       ) : (
         <div>
           <h1 className="text-3xl font-bold text-center text-white my-6">
-            Trending Artists
+            Top 20 Artists
           </h1>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {artists.map((artist) => (
