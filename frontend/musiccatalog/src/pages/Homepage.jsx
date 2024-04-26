@@ -20,7 +20,6 @@ const Homepage = () => {
 
   // displays the top 5 for artists, albums, and tracks
   let topArtists = homeData[0];
-  console.log(topArtists)
   let newAlbums = homeData[1];
   let topTracks = homeData[2];
 
@@ -62,7 +61,7 @@ const Homepage = () => {
         {/* components that will fomat the list of songs */}
         <Songs songs={topTracks} />
       </div>
-      <ul>
+      {/* <ul>
         {newAlbums &&
           newAlbums.map((item, index) => {
             return (
@@ -82,7 +81,7 @@ const Homepage = () => {
           topTracks.map((item, index) => {
             return <li>{item.track.name}</li>;
           })}
-      </ul>
+      </ul> */}
 
 
     </div>
