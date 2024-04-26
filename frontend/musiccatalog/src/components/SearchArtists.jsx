@@ -1,9 +1,10 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 
-const SearchArtists = ({artists}) => {
+const SearchArtists = ({ artists }) => {
   return (
     <div className="text-slate-50">
+
         <ul className="flex gap-3">
             {/* Goes over each album in the list to display the top 20 albums */}
             {artists && artists.map((item, index) => {
@@ -18,8 +19,9 @@ const SearchArtists = ({artists}) => {
                 );
             })}
         </ul>
-    </div>
-  )
-}
 
-export default SearchArtists
+    </div>
+  );
+};
+
+export default SearchArtists;
