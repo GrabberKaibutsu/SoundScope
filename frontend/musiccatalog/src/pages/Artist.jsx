@@ -39,7 +39,7 @@ const Artist = () => {
             {artists.map((artist) => (
               <li
                 key={artist.id}
-                className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center text-center space-y-3"
+                className="bg-slate-800 shadow-lg rounded-lg p-4 flex flex-col items-center text-center space-y-3"
               >
                 <Link
                   to={`/artist/${artist.id}`}
@@ -51,7 +51,7 @@ const Artist = () => {
                     className="w-32 h-32 rounded-full object-cover mx-auto"
                   />
                   <div>
-                    <h2 className="text-lg font-bold text-gray-900">
+                    <h2 className="text-lg font-bold text-white">
                       {artist.name}
                     </h2>
                     <p className="text-sm text-gray-500">
