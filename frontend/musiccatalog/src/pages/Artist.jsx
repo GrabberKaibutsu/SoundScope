@@ -25,7 +25,7 @@ const Artist = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-blue-800 py-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {error ? (
         <p className="text-red-600 text-center font-medium mt-5">
           Error: {error}
