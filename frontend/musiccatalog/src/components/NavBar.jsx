@@ -51,9 +51,10 @@ const NavBar = () => {
             </Link>
           </>
         ) : (
-          <Link to={"/login"} className="hover:text-indigo-600">
-            Login
-          </Link>
+          <div className="inline-block">
+            <Link to={"/login"} ><span className="hover:text-indigo-600">Login</span> /</Link>
+            <Link to={"/signup"} className="hover:text-indigo-600">&nbsp;Sign Up</Link>
+          </div>
         )}
       </div>
     </nav>
