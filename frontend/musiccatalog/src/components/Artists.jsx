@@ -6,7 +6,7 @@ const Artists = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3001/artists")
+    fetch(`http://localhost:3001/artists`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -14,7 +14,7 @@ const Artists = () => {
         return response.json();
       })
       .then((data) => {
-        setArtists(data); // Assuming data is the array of artists
+        setArtists(data);
       })
       .catch((error) => {
         console.error("Error fetching artists:", error);
@@ -32,7 +32,7 @@ const Artists = () => {
       ) : (
         <div>
           <h1 className="text-3xl font-bold text-center text-white my-6">
-            Top 20 Artists
+            Trending Artists
           </h1>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {artists.map((artist) => (
