@@ -51,6 +51,7 @@ const NavBar = () => {
             </Link>
           </>
         ) : (
+
           <>
           <Link to={"/login"} className="hover:text-indigo-600">
             Login
@@ -63,5 +64,6 @@ const NavBar = () => {
     </div>
   </nav>
 );
+
 };
 export default NavBar;

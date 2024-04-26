@@ -32,6 +32,7 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 // DELETE a review
 router.delete('/:id', ensureAuthenticated, async (req, res) => {
   try {
