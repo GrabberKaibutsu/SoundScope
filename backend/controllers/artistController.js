@@ -53,7 +53,7 @@ async function getSpotifyAccessToken() {
 }
 
 // Function to fetch artist data from Spotify API
-async function fetchArtistsFromSpotify(limit = 5) {
+async function fetchArtistsFromSpotify(limit = 8) {
   // Get Spotify access token using the getSpotifyAccessToken function
   const token = await getSpotifyAccessToken();
   // Get Spotify API base URL and define the endpoint for the search query
