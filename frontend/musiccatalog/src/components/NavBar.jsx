@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const NavBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
   const { isAuthenticated, user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -19,6 +20,10 @@ const NavBar = () => {
   const handleLogout = () => {
     logout();
     navigate("/login"); // Redirect user to the login page after logout
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
   };
 
   return (
@@ -40,7 +45,14 @@ const NavBar = () => {
           Search
         </button>
       </div>
-      <div className="nav-links">
+
+      <div className="block md:hidden">
+          <button onClick={toggleDropdown} className="text-white focus:outline-none">
+            &#9776;
+          </button>
+      </div>
+
+      <div className="nav-links hidden lg:flex lg:items-center">
         <Link to={"/artists"} className="hover:text-indigo-600">
           Artists
         </Link>
@@ -51,6 +63,22 @@ const NavBar = () => {
           Playlists
         </Link>
       </div>
+      <div>
+        {showDropdown && (
+          <div className="nav-links hidden lg:flex lg:items-center">
+            <Link to={"/artists"} className="hover:text-indigo-600">
+              Artists
+            </Link>
+            <Link to={"/albums"} className="hover:text-indigo-600">
+              Albums
+            </Link>
+            <Link to={"/featured-playlists"} className="hover:text-indigo-600">  {/* Assuming this is the route */}
+              Playlists
+            </Link>
+          </div>
+        )}
+      </div>
+
       <div className="profile-section">
         {isAuthenticated ? (
           <>
