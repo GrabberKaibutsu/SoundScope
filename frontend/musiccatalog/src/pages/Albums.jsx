@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Albums from "../components/Album"
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 const ViewAlbums = () => {
 
     const [albums, setAlbums] = useState([]);

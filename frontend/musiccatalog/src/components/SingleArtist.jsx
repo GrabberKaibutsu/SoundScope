@@ -13,7 +13,7 @@ function ArtistDetail({ artist }) {
   );
 }
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 
 
 const SingleArtist = () => {

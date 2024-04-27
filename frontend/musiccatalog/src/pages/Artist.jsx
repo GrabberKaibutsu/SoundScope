@@ -3,7 +3,7 @@ import Artists from "../components/Artists";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 const Artist = () => {
   const [artists, setArtists] = useState([]);
   const [error, setError] = useState("");

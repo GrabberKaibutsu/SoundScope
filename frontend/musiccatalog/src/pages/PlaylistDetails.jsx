@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 const PlaylistDetails = () => {
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading] = useState(true);
