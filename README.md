@@ -51,7 +51,7 @@ Launch app (not here yet) [Here.]()
 ## Wireframes 
 
 
-[Click here](https://drive.google.com/drive/folders/1ffMVhHb-L1ZBh-j0W2wY_46UHOMaQcX9?usp=drive_link) to view wireframes.
+[Click here]() to view wireframes.
 
 <br>
 
