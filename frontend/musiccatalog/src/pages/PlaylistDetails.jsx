@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+const host = import.meta.env.BACKENDURL
 const PlaylistDetails = () => {
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -9,7 +10,7 @@ const PlaylistDetails = () => {
 
     useEffect(() => {
         console.log(`Fetching data for playlist ID: ${id}`);
-        fetch(`http://localhost:3001/api/playlists/${id}/tracks`)
+        fetch(`${host}/api/playlists/${id}/tracks`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch playlist details');

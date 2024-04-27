@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Songs from "../components/AlbumSongs"
 
+const host = import.meta.env.BACKENDURL
 const ShowAlbum = ({user}) => {
 
     const { id } = useParams();
@@ -11,7 +12,7 @@ const ShowAlbum = ({user}) => {
     const [content, setContent] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:3001/albums/${id}`)
+        fetch(`${host}/albums/${id}`)
           .then((res) => {
             if (res.ok) {
               return res.json();
@@ -31,7 +32,7 @@ const ShowAlbum = ({user}) => {
             return;
           }
 
-          const response = await fetch(`http://localhost:3001/albums/favorited/${user.id}/${album?.id}`, {
+          const response = await fetch(`${host}/albums/favorited/${user.id}/${album?.id}`, {
           headers: {
           'Authorization': `Bearer ${token}`,
           },
@@ -55,7 +56,7 @@ const ShowAlbum = ({user}) => {
       try {
         setLoading(true);
     
-        const response = await fetch(`http://localhost:3001/albums/favorited/${user.id}/${album?.id}`, {
+        const response = await fetch(`${host}/albums/favorited/${user.id}/${album?.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
