@@ -242,7 +242,6 @@ const PlaylistDetails = () => {
     }
 
     if (!tracks || tracks.length === 0) {
-        console.log(tracks)
         return <div>No tracks available.</div>;
     }
 
