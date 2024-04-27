@@ -1,6 +1,8 @@
 // Require modules
 const express = require("express");
 const router = express.Router();
+ const fetch = require("node-fetch");
+const Album = require("../models/album");
 const User = require("../models/user");
 const validateJWT = require("./validateJWT");
 require('dotenv').config()
