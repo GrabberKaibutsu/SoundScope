@@ -98,29 +98,40 @@ const SingleArtist = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      {artist ? (
-        <div className="bg-white shadow rounded-lg p-6">
-          <h1 className="text-3xl font-bold mb-4">{artist.name}</h1>
+      {artist && (
+        <div className="bg-slate-800 shadow-lg rounded-lg p-6">
+          <h1 className="text-3xl font-bold text-center text-white mb-4">
+            {artist.name}
+          </h1>
           <img
             src={artist.images[0]?.url}
             alt={artist.name}
-            className="w-full h-auto rounded-md mb-4"
+            className="w-64 h-64 object-cover rounded-full mx-auto mb-6"
           />
-          <p className="text-lg">
-            {artist.followers.total.toLocaleString()} followers
-          </p>
-          <p className="text-md text-gray-700">{artist.biography}</p>
-          <button
-            onClick={toggleFavorite}
-            className={`px-4 py-2 mt-4 rounded ${
-              isFavorited ? "bg-red-500 text-white" : "bg-gray-200 text-black"
-            }`}
-          >
-            {isFavorited ? "Unfavorite" : "Favorite"}
-          </button>
+          <div className="text-center space-y-4">
+            <p className="text-xl font-bold text-yellow-300">
+              {artist.followers.total.toLocaleString()} followers
+            </p>
+            <p className="text-md font-semibold text-cyan-400">
+              Genres:{" "}
+              <span className="text-cyan-500">{artist.genres.join(", ")}</span>
+            </p>
+            <p className="text-md font-semibold text-lime-500">
+              Popularity:{" "}
+              <span className="text-lime-600">{artist.popularity}</span>
+            </p>
+            <button
+              onClick={toggleFavorite}
+              className={`mt-4 px-6 py-2 rounded font-medium transition-all duration-300 ease-in-out ${
+                isFavorited
+                  ? "bg-red-600 hover:bg-red-700 text-white"
+                  : "bg-blue-500 hover:bg-blue-600 text-white"
+              }`}
+            >
+              {isFavorited ? "Unfavorite" : "Favorite"}
+            </button>
+          </div>
         </div>
-      ) : (
-        <p>Artist not found.</p>
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
@@ -8,7 +9,9 @@ const Login = (props) => {
     password: "",
   });
 
+
   const navigate = useNavigate();
+
 
   const handleLogin = async () => {
     try {
@@ -19,6 +22,7 @@ const Login = (props) => {
         },
         body: JSON.stringify(formData),
       });
+
 
       const data = await response.json();
       if (!response.ok) {
@@ -40,6 +44,7 @@ const Login = (props) => {
     } catch (error) {
       console.error("Network error:", error);
       alert("Network error: " + error.message);
+
     }
   };
 
@@ -70,6 +75,7 @@ const Login = (props) => {
             name="email"
             placeholder="Email"
             autoComplete="email"
+
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"
@@ -78,6 +84,7 @@ const Login = (props) => {
             type="password"
             name="password"
             placeholder="Password"
+            autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"

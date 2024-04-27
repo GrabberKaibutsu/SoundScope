@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 // Register a new user
-router.post("/register", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -77,7 +77,7 @@ router.post("/logout", (req, res) => {
         if (err) {
           return res.status(500).json({ message: "Logout failed" });
         }
-        res.clearCookie("sessionID"); // Clear session cookie
+        res.clearCookie("token");
         res.json({ message: "Logged out successfully" });
       });
     } else {

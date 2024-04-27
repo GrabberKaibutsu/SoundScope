@@ -22,10 +22,8 @@ const reviewRoutes = require("./controllers/reviewController");
 const searchRoutes = require("./controllers/searchController");
 const userRouter = require("./controllers/userController");
 const homeRouter = require("./controllers/homeController");
+const playlistRouter = require('./controllers/songsController');
 
-
-
- const songsController = require('./controllers/songsController');//new code
 
 
 
@@ -59,7 +57,8 @@ app.use("/reviews", reviewRoutes);
 app.use("/search", searchRoutes);
 app.use("/users", userRouter);
 app.use("/home", homeRouter);
-app.use('/songs', songsController);//new controller
+//app.use('/songs', songsController);//new controller
+app.use('/featured-playlists', playlistRouter);
 
 // Basic route for homepage
 app.get("/", (req, res) => {
