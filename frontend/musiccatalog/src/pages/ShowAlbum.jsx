@@ -8,6 +8,7 @@ const ShowAlbum = ({user}) => {
     const [album, setalbum] = useState(null);
     const [favorited, setFavorited] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [content, setContent] = useState('');
 
     useEffect(() => {
         fetch(`http://localhost:3001/albums/${id}`)
@@ -74,7 +75,6 @@ const ShowAlbum = ({user}) => {
       }
     }
 
-console.log(favorited)
 
     return (
         <div className="">
@@ -108,6 +108,10 @@ console.log(favorited)
               </div>
             </div>
           </div>
+          <br></br>
+          <br></br>
+
+
         </div>
     )
 }
