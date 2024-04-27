@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 // Register a new user
-router.post("/register", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -22,6 +22,8 @@ router.post("/register", async (req, res) => {
       { userId: newUser._id, username: newUser.username },
       process.env.JWT_SECRET
     );
+
+    console.log(token)
 
     res.status(201).json({
       message: "User registered successfully",
@@ -51,7 +53,6 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-
     // Generate JWT
     const token = jwt.sign(
       { userId: user._id, username: user.username },
@@ -64,7 +65,6 @@ router.post("/login", async (req, res) => {
       user: { id: user._id, username: user.username },
       token: token,
     });
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -79,7 +79,7 @@ router.post("/logout", (req, res) => {
         if (err) {
           return res.status(500).json({ message: "Logout failed" });
         }
-        res.clearCookie("sessionID"); // Clear session cookie
+        res.clearCookie("token");
         res.json({ message: "Logged out successfully" });
       });
     } else {

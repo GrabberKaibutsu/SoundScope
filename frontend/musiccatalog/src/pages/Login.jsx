@@ -84,6 +84,7 @@ const Login = (props) => {
             type="password"
             name="password"
             placeholder="Password"
+            autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-600 dark:text-white"

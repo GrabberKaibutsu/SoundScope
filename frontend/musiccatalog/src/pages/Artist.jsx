@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import Artists from "../components/Artists";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Artists = () => {
+const Artist = () => {
   const [artists, setArtists] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3001/artists`)
+    fetch(`http://localhost:3001/artists/home`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -31,7 +33,7 @@ const Artists = () => {
       ) : (
         <div>
           <h1 className="text-3xl font-bold text-center text-white my-6">
-            Trending Artists
+            Top 20 Artists
           </h1>
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {artists.map((artist) => (
@@ -66,4 +68,4 @@ const Artists = () => {
   );
 };
 
-export default Artists;
+export default Artist;

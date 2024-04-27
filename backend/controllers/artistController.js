@@ -3,35 +3,18 @@ const router = express.Router();
 const Artist = require("../models/artist");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const validateJWT = require("./validateJWT");
 
 // Require DB connection
 const db = require("../models");
 
 const spotifyAPIBaseURL = "https://api.spotify.com/v1";
 
-// Function to fetch data from Spotify API - In place of node fetch - Had an error with node-fetch and used the following code to replace it based on internet search
+// Set up node fetch for making requests to Spotify API
 async function fetch(url, options) {
   const { default: fetch } = await import("node-fetch");
   return fetch(url, options);
 }
-
-// Middleware for validating JWT tokens
-const validateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        console.error("JWT Error:", err);
-        return res.status(403).json({ message: "Invalid token" });
-      }
-      req.user = decoded;
-      next();
-    });
-  } else {
-    res.status(401).json({ message: "No token provided" });
-  }
-};
 
 // Function to get Spotify access token
 async function getSpotifyAccessToken() {
@@ -70,11 +53,11 @@ async function getSpotifyAccessToken() {
 }
 
 // Function to fetch artist data from Spotify API
-async function fetchArtistsFromSpotify() {
+async function fetchArtistsFromSpotify(limit = 8) {
   // Get Spotify access token using the getSpotifyAccessToken function
   const token = await getSpotifyAccessToken();
   // Get Spotify API base URL and define the endpoint for the search query
-  const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&market=US&limit=20`;
+  const endpoint = `${spotifyAPIBaseURL}/search?q=year%3A2024&type=artist&market=US&limit=${limit}`;
 
   try {
     // Fetch data from Spotify API
@@ -127,11 +110,24 @@ async function fetchArtistFromSpotify(artistId) {
   }
 }
 
-// Index - GET - /artists
+// Index HOME PAGE - GET - /artists
 router.get("/", async (req, res) => {
   try {
     // Fetch artists from Spotify using the fetchArtistsFromSpotify function
     const artists = await fetchArtistsFromSpotify();
+    // Send the response as JSON with the fetched artists
+    res.json(artists);
+  } catch (error) {
+    // Handle error
+    res.status(500).json({ error: "Failed to fetch artists from Spotify" });
+  }
+});
+
+// Index ARTISTS PAGE - GET - /artists
+router.get("/home", async (req, res) => {
+  try {
+    // Fetch artists from Spotify using the fetchArtistsFromSpotify function
+    const artists = await fetchArtistsFromSpotify(20);
     // Send the response as JSON with the fetched artists
     res.json(artists);
   } catch (error) {
@@ -179,7 +175,7 @@ router.get("/:id", async (req, res) => {
 // Toggle favorite artist
 router.post("/favorite", validateJWT, async (req, res) => {
   const { artistId } = req.body;
-  const userId = req.user.userId; // Use the correct property to access the user ID
+  const userId = req.user.userId;
 
   try {
     const user = await User.findById(userId);
@@ -209,5 +205,6 @@ router.post("/favorite", validateJWT, async (req, res) => {
 });
 
 // Delete - DELETE - /artists/:id
+// Toggle Favorite Artist above deletes the favorited artist from the user's favoriteArtists array
 
 module.exports = router;

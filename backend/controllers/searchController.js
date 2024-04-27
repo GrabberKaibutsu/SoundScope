@@ -3,8 +3,8 @@ const router = express.Router();
 
 require('dotenv').config()
 
-const CLIENT_ID = process.env.Client_ID
-const CLIENT_SECRET = process.env.Client_Secret
+const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_SECRET = process.env.CLIENT_SECRET
 
 let token = "Your_Spotify_Access_Token";
 
@@ -34,7 +34,7 @@ async function searchSpotify(searchTerm){
     // searchTerm = searchTermSplitTwo.join('%3A');
     // console.log(searchTerm)
 
-    const endpoint = `https://api.spotify.com/v1/search?q=${searchTerm}&type=artist,album,track&market=US&limit=20`
+    const endpoint = `https://api.spotify.com/v1/search?q=${searchTerm}&type=artist,album,track&market=US&limit=6`
   
     try {
   
