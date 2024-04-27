@@ -10,25 +10,6 @@ const FeaturedPlaylists = ({ }) => {
             .catch(error => console.error('Error fetching playlists:', error));
     }, []);
 
-// return (
-//     <div className="px-10 py-5">
-//       <h1 className="text-4xl text-slate-50 mb-5">Featured Playlists</h1>
-//       <div className="grid grid-cols-3 gap-5">
-//         {playlists.map(playlist => (
-//           <div key={playlist.id} className="bg-gray-800 hover:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-200 ease-in-out">
-//             <img src={playlist.images[0].url} alt={playlist.name} className="w-full h-64 object-cover" />
-//             <div className="p-4">
-//               <h3 className="text-xl text-slate-50">{playlist.name}</h3>
-//               <p className="text-gray-400">{playlist.description}</p>
-//               <Link to={`/playlists/${playlist.id}`} className="text-indigo-500 hover:text-indigo-400 mt-2 inline-block">View More</Link>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
 return (
     <div className="px-10 py-5">
       <h1 className="text-4xl text-slate-50 mb-5">Featured Playlists</h1>

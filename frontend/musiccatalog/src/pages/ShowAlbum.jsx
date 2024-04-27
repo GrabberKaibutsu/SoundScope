@@ -108,16 +108,6 @@ console.log(favorited)
               </div>
             </div>
           </div>
-{/* 
-          <br></br>
-          <br></br>
-
-          <div className="flex gap-2">
-            <label className="text-slate-50">Review: &nbsp;&nbsp;</label>
-            <input type="text" placeholder="Write A Review about this Album" className="rounded w-3/4"/>
-            <input type="button" value="Submit" className="bg-lime-600 hover:bg-lime-500 p-2"/>
-          </div> */}
-
         </div>
     )
 }
