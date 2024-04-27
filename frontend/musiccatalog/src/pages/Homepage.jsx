@@ -117,7 +117,7 @@ const Homepage = () => {
       </div>
       <br />
       <div>
-        <div className="flex justify-between">
+        <div className="flex gap-10 md:gap-96">
           <h1 className="text-slate-50 text-4xl">New Albums</h1>
           <Link to={`/albums`} className="text-slate-50 hover:text-indigo-600">
             View More Albums
@@ -128,7 +128,7 @@ const Homepage = () => {
       </div>
       <br />
       <div>
-        <div className="flex justify-between">
+        <div className="flex gap-10 md:gap-96">
           <h1 className="text-slate-50 text-4xl">Top Songs</h1>
           <button
             type="button"
