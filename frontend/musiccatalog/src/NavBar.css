@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .navbar {
     display: flex;
     flex-wrap: wrap; /* Allows items to wrap to a new line if needed */
