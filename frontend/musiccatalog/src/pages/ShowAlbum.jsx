@@ -79,8 +79,6 @@ const ShowAlbum = ({user}) => {
 
       e.preventDefault();
 
-      console.log(content)
-
       fetch(`http://localhost:3001/reviews/albums/${album?.id}/${user.id}/comments`, {
           method: 'POST',
           headers: {

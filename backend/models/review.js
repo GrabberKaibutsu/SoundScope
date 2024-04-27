@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const reviewSchema = new Schema({
   reviewedBy: { type: String, required: true },
   itemId: { type: String, required: true }, // The ID of the item being reviewed
-  content: { type: String, required: true },
+  comment: { type: String, required: true },
   reviewDate: { type: Date, default: Date.now },
 });
 
