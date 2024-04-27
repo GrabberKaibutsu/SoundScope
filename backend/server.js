@@ -51,14 +51,14 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/artists", artistController);
-app.use("/api", musicdbRoutes);
+//app.use("/api", musicdbRoutes);
 app.use("/albums", albumRoutes);
 app.use("/reviews", reviewRoutes);
 app.use("/search", searchRoutes);
 app.use("/users", userRouter);
 app.use("/home", homeRouter);
 //app.use('/songs', songsController);//new controller
-app.use('/featured-playlists', playlistRouter);
+app.use('/api', playlistRouter);//was featured-playlists
 
 // Basic route for homepage
 app.get("/", (req, res) => {

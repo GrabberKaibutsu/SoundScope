@@ -50,6 +50,9 @@ const NavBar = () => {
         <Link to={"/"} className="hover:text-indigo-600">
           Top Songs
         </Link>
+        <Link to={"/featured-playlists"} className="hover:text-indigo-600">  {/* Assuming this is the route */}
+          Playlists
+        </Link>
       </div>
       <div className="profile-section">
         {isAuthenticated ? (
