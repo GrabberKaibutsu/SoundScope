@@ -50,11 +50,14 @@ const NavBar = () => {
         <Link to={"/"} className="hover:text-indigo-600">
           Top Songs
         </Link>
+        <Link to={"/featured-playlists"} className="hover:text-indigo-600">  {/* Assuming this is the route */}
+          Playlists
+        </Link>
       </div>
       <div className="profile-section">
         {isAuthenticated ? (
           <>
-            <span className="mr-4">Welcome, {user.username}</span>
+            <span className="mr-4">Welcome, {user.username}!</span>
             <button onClick={handleLogout} className="hover:text-indigo-600">
               Logout
             </button>
