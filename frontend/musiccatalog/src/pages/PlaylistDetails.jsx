@@ -29,27 +29,26 @@ const PlaylistDetails = () => {
     }, [id]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="text-white text-lg font-bold">Loading...</div>;
     }
 
     if (error) {
-        return <div>Error: {error}</div>;
+        return <div className="text-white text-lg">Error: {error}</div>;
     }
 
     if (!tracks || tracks.length === 0) {
-        return <div>No tracks available.</div>;
+        return <div className="text-white text-lg">No tracks available.</div>;
     }
 
     return (
-        
-        <div>
-            <h1>Playlist Tracks</h1>
+        <div className="text-white">
+            <h1 className="text-2xl font-bold mb-4">Playlist Tracks</h1>
             <ul>
                 {tracks.map(track => (
-                    <li key={track?.track?.id}>
-                        {track?.track?.name} by {(track?.track?.artists[0]?.name)}
-                        <a href={`https://open.spotify.com/track/${track?.track?.id}`} target="_blank" rel="noopener noreferrer">
-                            &nbsp;Listen on Spotify
+                    <li key={track?.track?.id} className="mb-2">
+                        <span className="mr-2">{track?.track?.name}</span> by {track?.track?.artists[0]?.name}
+                        <a href={`https://open.spotify.com/track/${track?.track?.id}`} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-400 hover:underline">
+                            Listen on Spotify
                         </a>
                     </li>
                 ))}
@@ -57,9 +56,4 @@ const PlaylistDetails = () => {
         </div>
     );
 };
-
 export default PlaylistDetails;
-
-
-
-
