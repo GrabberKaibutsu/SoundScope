@@ -4,7 +4,7 @@ import Albums from "../components/HomeAlbums"
 import Songs from "../components/SearchedSongs"
 import Artists from "../components/SearchArtists"
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 const Search = () => {
 
     const { searchTerm } = useParams();

@@ -5,7 +5,7 @@ import Albums from "../components/HomeAlbums";
 import Songs from "../components/HomeSongs";
 import { Link } from "react-router-dom";
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 const Homepage = () => {
   const [homeData, setHomeData] = useState([]);
   const [error, setError] = useState(null);

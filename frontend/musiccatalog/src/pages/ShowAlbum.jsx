@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Songs from "../components/AlbumSongs"
 
-const host = import.meta.env.BACKENDURL
+const host = import.meta.env.VITE_BACKENDURL
 const ShowAlbum = ({user}) => {
 
     const { id } = useParams();
