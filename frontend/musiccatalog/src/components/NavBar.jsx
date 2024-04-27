@@ -47,9 +47,6 @@ const NavBar = () => {
         <Link to={"/albums"} className="hover:text-indigo-600">
           Albums
         </Link>
-        <Link to={"/"} className="hover:text-indigo-600">
-          Top Songs
-        </Link>
         <Link to={"/featured-playlists"} className="hover:text-indigo-600">  {/* Assuming this is the route */}
           Playlists
         </Link>
