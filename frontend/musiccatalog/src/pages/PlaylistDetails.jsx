@@ -223,7 +223,7 @@ const PlaylistDetails = () => {
             })
             .then(data => {
                 console.log('Data received:', data);
-                setTracks(data.items); // Assuming 'data.items' is the array of tracks
+                setTracks(data); // Assuming 'data.items' is the array of tracks
                 setLoading(false);
             })
             .catch(error => {
@@ -251,10 +251,10 @@ const PlaylistDetails = () => {
             <h1>Playlist Tracks</h1>
             <ul>
                 {tracks.map(track => (
-                    <li key={track.id}>
-                        {track.name} by {(track.artists || []).map(artist => artist.name).join(", ")}
-                        <a href={`https://open.spotify.com/track/${track.id}`} target="_blank" rel="noopener noreferrer">
-                            Listen on Spotify
+                    <li key={track?.track?.id}>
+                        {track?.track?.name} by {(track?.track?.artists[0]?.name)}
+                        <a href={`https://open.spotify.com/track/${track?.track?.id}`} target="_blank" rel="noopener noreferrer">
+                            &nbsp;Listen on Spotify
                         </a>
                     </li>
                 ))}
