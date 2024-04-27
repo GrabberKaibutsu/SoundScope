@@ -20,6 +20,7 @@ const ViewAlbums = () => {
   return (
     <div>
         <h1 className="text-slate-50 text-4xl">New Albums</h1>
+        <br></br>
 
         {/* albums components that will show the list of the top 20 new-released albums */}
         <Albums albums={albums} />

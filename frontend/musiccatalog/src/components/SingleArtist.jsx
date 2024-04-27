@@ -51,7 +51,7 @@ const SingleArtist = () => {
     setIsFavorited(!isFavorited);
 
     const token = localStorage.getItem("token");
-
+21
     try {
       const response = await fetch("http://localhost:3001/artists/favorite", {
         method: "POST",

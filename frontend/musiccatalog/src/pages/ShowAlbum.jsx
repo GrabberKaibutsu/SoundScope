@@ -19,7 +19,7 @@ const ShowAlbum = () => {
     }, [id]);
 
     useEffect(() => {
-      fetch(`http://localhost:3001/albums/${id}/favorited`)
+      fetch(`http://localhost:3001/albums/favorited/${id}`)
         .then((res) => {
           if (res.ok) {
             return res.json();

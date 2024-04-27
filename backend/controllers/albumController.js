@@ -116,7 +116,7 @@ router.get("/", async (req, res) => {
 });
 
 // GET album is favorited for user
-router.get("/:albumId/favorited", validateJWT, async (req, res) => {
+router.get("/favorited/:albumId", validateJWT, async (req, res) => {
   try {
     const userId = req.user.userId;
     const albumId = req.params.albumId;
@@ -147,6 +147,40 @@ router.get("/:id", async (req, res)=> {
   }catch (error) {
     // Handle error
     res.status(500).json({ error: "Failed to fetch album from Spotify" });
+  }
+})
+
+// Route to toggle favorite status
+router.post('/favorited/:userId/:itemId', async (req, res)=> {
+  try{
+
+    const userId = req.params.userId;
+    const itemId = req.body.itemId;
+
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the song is already in favorites
+    const index = user.favorites.indexOf(itemId);
+    if (index !== -1) {
+      // Song is already favorited, so remove it
+      user.favoriteAlbums.splice(index, 1);
+    } else {
+      // Song is not favorited, so add it
+      user.favoriteAlbums.push(itemId);
+    }
+
+    // Save the updated user document
+    await user.save();
+
+    res.status(200).json({ message: 'Favorite status toggled successfully' });
+  } catch (error) {
+    console.error('Error toggling favorite status:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 })
 

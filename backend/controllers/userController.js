@@ -23,6 +23,8 @@ router.post("/signup", async (req, res) => {
       process.env.JWT_SECRET
     );
 
+    console.log(token)
+
     res.status(201).json({
       message: "User registered successfully",
       userId: newUser._id,
