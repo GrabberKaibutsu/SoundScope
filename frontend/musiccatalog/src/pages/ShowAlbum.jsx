@@ -7,8 +7,6 @@ const ShowAlbum = ({user}) => {
     const { id } = useParams();
     const [album, setalbum] = useState(null);
     const [favorited, setFavorited] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [content, setContent] = useState('');
 
     useEffect(() => {
         fetch(`http://localhost:3001/albums/${id}`)

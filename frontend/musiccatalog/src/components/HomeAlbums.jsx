@@ -37,11 +37,11 @@ const HomeAlbum = ({ albums }) => {
             {/* Goes over each album in the list to display the top 20 albums */}
             {albums && albums.map((item, index) => {
                 return (
-                    <li className="flex" key={index}>
+                    <li className="flex justify-items-center" key={index}>
                         {/* link to the show album page that will show more details about the album */}
                         <Link to={`/album/${item.id}`} className="hover:text-indigo-600">
-                            <img src={item.images[0]?.url} className="w-full md:w-1/2 lg:w-full xl:w-full" />
-                            <p className="mt-2 text-center">{item?.name}</p>
+                            <img src={item.images[2]?.url} className="w-full md:w-48 h-auto" />
+                            <p className="mt-2 text-wrap">{item?.name}</p>
                             <p className="mt-2  text-sm md:text-md lg:text-lg text-zinc-500">Released: {item?.release_date}</p>
                         </Link>
                     </li>
