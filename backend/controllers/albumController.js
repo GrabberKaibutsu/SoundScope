@@ -107,7 +107,7 @@ router.get("/", async (req, res) => {
     // Fetch albums from Spotify
     const albums = await fetchAlbums();
     // Send the response
-    res.send(albums);
+    res.json(albums);
 
   } catch (error) {
     // Handle error
@@ -116,9 +116,9 @@ router.get("/", async (req, res) => {
 });
 
 // GET album is favorited for user
-router.get("/favorited/:albumId", validateJWT, async (req, res) => {
+router.get("/favorited/:userId/:albumId", validateJWT, async (req, res) => {
   try {
-    const userId = req.user.userId;
+    const userId = req.params.userId;
     const albumId = req.params.albumId;
     const user = await User.findById(userId);
     if (!user) {
@@ -126,7 +126,8 @@ router.get("/favorited/:albumId", validateJWT, async (req, res) => {
     }
 
     const isFavorited = user.favoriteAlbums.includes(albumId);
-    res.send({ isFavorited: isFavorited });
+    console.log(isFavorited)
+    res.json({ isFavorited: isFavorited });
 
 
   } catch (error) {
@@ -165,8 +166,9 @@ router.post('/favorited/:userId/:itemId', async (req, res)=> {
     }
 
     // Check if the song is already in favorites
-    const index = user.favorites.indexOf(itemId);
-    if (index !== -1) {
+    // const index = user.favorites.indexOf(itemId);
+    // if (index !== -1) {
+      if (user.favorites && user.favorites.indexOf(itemId) !== -1) {
       // Song is already favorited, so remove it
       user.favoriteAlbums.splice(index, 1);
     } else {

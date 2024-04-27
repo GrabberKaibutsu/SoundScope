@@ -7,7 +7,7 @@ const AlbumSongs = ({songs}) => {
         <ul className="grid gap-x-20 gap-y-4 grid-cols-2 hover:list-disc">
             {songs && songs.map((item, index) => {
                 return (
-                    <li className="flex justify-start">
+                    <li className="flex justify-start w-">
                         {item?.name}
                     </li>
                 );

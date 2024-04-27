@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup setUser={setUser} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/album/:id" element={<Album />} />
+        <Route path="/album/:id" element={<Album user={user} />} />
         <Route path="/albums" element={<Albums />} />
         <Route path="/artists" element={<Artist />} />
         <Route path="/artist/:id" element={<SingleArtist />} />

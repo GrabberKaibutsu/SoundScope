@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Songs from "../components/AlbumSongs"
 
-const ShowAlbum = () => {
+const ShowAlbum = ({user}) => {
 
     const { id } = useParams();
     const [album, setalbum] = useState(null);
     const [favorited, setFavorited] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch(`http://localhost:3001/albums/${id}`)
@@ -19,21 +20,67 @@ const ShowAlbum = () => {
     }, [id]);
 
     useEffect(() => {
-      fetch(`http://localhost:3001/albums/favorited/${id}`)
+      // Retrieve the authentication token from localStorage or wherever it's stored
+      const token = localStorage.getItem('token');
+
+      // Check if the token exists before making the fetch request
+      if (token) {
+        fetch(`http://localhost:3001/albums/favorited/${user.id}/${album?.id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Include the token in the Authorization header   
+          },
+        })
         .then((res) => {
           if (res.ok) {
             return res.json();
+          } else {
+            throw new Error('Failed to fetch favorited albums');
           }
         })
-        .then((jsonRes) => setFavorited(jsonRes));
-  });
+        .then((jsonRes) => setFavorited(jsonRes))
+        .catch((error) => {
+          console.error('Error fetching favorited albums:', error);
+        });
+      }else {
+        console.error('Authentication token not found');
+      }
+    }, [user.id, album?.id]);
+
+  const handleToggleFavorite = async () => {
+
+    // const token = localStorage.getItem("token");
+
+    try {
+      setLoading(true);
+
+      await fetch(`http://localhost:3001/albums/favorited/${user.id}/${album?.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${token}`,
+        }
+      })
+      .then((res) => {
+        if (res.ok) {
+          setFavorited(!favorited); // Toggle favorite status in the UI
+        }
+      })
+    }catch (error) {
+      console.error('Error toggling favorite status:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
     return (
         <div>
           <div className="flex justify-center gap-28">
             <h1 className="text-slate-50 text-4xl">{album?.name}</h1>
 
-            <input type="button" value="Favorite" className="bg-red-600 hover:bg-red-500 text-slate-50 p-2 m-0"/>
+            <button type="button" value="Favorite"
+            onClick={handleToggleFavorite} className={`text-slate-50 px-4 py-2 rounded ${favorited ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-600'}`}>
+              {favorited ? 'Unfavorite' : 'Favorite'}
+            </button>
           </div>
 
           <Link to={`/artist/${album?.artists[0]?.id}`}> <p className="text-zinc-500 hover:text-indigo-600">{album?.artists[0]?.name}</p> </Link>
