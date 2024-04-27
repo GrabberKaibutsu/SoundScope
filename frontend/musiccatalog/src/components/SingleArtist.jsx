@@ -13,7 +13,7 @@ function ArtistDetail({ artist }) {
   );
 }
 
-
+const host = import.meta.env.BACKENDURL
 
 
 const SingleArtist = () => {
@@ -28,14 +28,14 @@ const SingleArtist = () => {
       setLoading(true);
       try {
         const artistResponse = await fetch(
-          `http://localhost:3001/artists/${id}`
+          `${host}/artists/${id}`
         );
         if (!artistResponse.ok) throw new Error("Artist fetch failed");
         const artistData = await artistResponse.json();
 
         const token = localStorage.getItem("token");
         const favoriteResponse = await fetch(
-          `http://localhost:3001/artists/${id}/is-favorited`,
+          `${host}/artists/${id}/is-favorited`,
           {
             method: "GET",
             headers: {

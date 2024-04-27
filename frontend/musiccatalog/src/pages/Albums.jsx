@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Albums from "../components/Album"
 
+const host = import.meta.env.BACKENDURL
 const ViewAlbums = () => {
 
     const [albums, setAlbums] = useState([]);
 
     // grabs the top 20 new-released albums from the backend
     useEffect(() => {
-        fetch("http://localhost:3001/albums")
+        fetch(`${host}/albums`)
         .then((res) => {
             if (res.ok) {
             return res.json();

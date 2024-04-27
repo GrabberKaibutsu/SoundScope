@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const host = import.meta.env.BACKENDURL
 const Signup = (props) => {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,7 +14,7 @@ const Signup = (props) => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users/signup", {
+      const response = await fetch(`${host}/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
