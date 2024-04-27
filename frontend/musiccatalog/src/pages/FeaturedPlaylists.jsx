@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-const FeaturedPlaylists = () => {
+const FeaturedPlaylists = ({ }) => {
     const [playlists, setPlaylists] = useState([]);
 
     useEffect(() => {
@@ -10,43 +10,43 @@ const FeaturedPlaylists = () => {
             .catch(error => console.error('Error fetching playlists:', error));
     }, []);
 
-//     return (
-//         <div style={{ color: 'white' }}> 
-//             <h1>Featured Playlists</h1>
-//             <ul>
-//                 {playlists.map(playlist => (
-//                     <li key={playlist.id}>
-//                           <Link to={`/playlist/${playlist.id}`}>
-//                         {playlist.name} - {playlist.description}
-//                         </Link>
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
+// return (
+//     <div className="px-10 py-5">
+//       <h1 className="text-4xl text-slate-50 mb-5">Featured Playlists</h1>
+//       <div className="grid grid-cols-3 gap-5">
+//         {playlists.map(playlist => (
+//           <div key={playlist.id} className="bg-gray-800 hover:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-200 ease-in-out">
+//             <img src={playlist.images[0].url} alt={playlist.name} className="w-full h-64 object-cover" />
+//             <div className="p-4">
+//               <h3 className="text-xl text-slate-50">{playlist.name}</h3>
+//               <p className="text-gray-400">{playlist.description}</p>
+//               <Link to={`/playlists/${playlist.id}`} className="text-indigo-500 hover:text-indigo-400 mt-2 inline-block">View More</Link>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
 // };
 
 return (
-   
-    <div className="playlist-container">
-         
-        <h1>Featured Playlists</h1>
-        <div className="grid">
-            {playlists.map(playlist => (
-                <div key={playlist.id} className="playlist-card">
-                    {playlist.images && playlist.images[0] && (
-                        <img src={playlist.images[0].url} alt={playlist.name} className="playlist-image" />
-                    )}
-                    <div className="playlist-info">
-                        <h2>{playlist.name}</h2>
-                        <p>{playlist.description}</p>
-                    </div>
-                </div>
-            ))}
-        </div>
+    <div className="px-10 py-5">
+      <h1 className="text-4xl text-slate-50 mb-5">Featured Playlists</h1>
+      <div className="grid grid-cols-3 gap-5">
+        {playlists.map(playlist => (
+          <Link key={playlist.id} to={`/playlists/${playlist.id}`} className="bg-gray-800 hover:bg-gray-700 rounded-lg overflow-hidden shadow-lg transition duration-200 ease-in-out block">
+            <img src={playlist.images[0]?.url} alt={playlist.name} className="w-full h-64 object-cover" />
+            <div className="p-4">
+              <h3 className="text-xl text-slate-50">{playlist.name}</h3>
+              <p className="text-gray-400">{playlist.description}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
-);
+  );
 };
+
 
 export default FeaturedPlaylists;
 

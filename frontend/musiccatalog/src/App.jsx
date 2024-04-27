@@ -38,7 +38,7 @@ function App() {
         <Route path="/artist/:id" element={<SingleArtist />} />
         <Route path="/search/:searchTerm" element={<Search />} />
         <Route path="/featured-playlists" element={<FeaturedPlaylists />} />
-        <Route path="/playlist/:id" element={<PlaylistDetails />} />
+        <Route path="/playlists/:id" element={<PlaylistDetails />} />
       </Routes>
     </>
   );

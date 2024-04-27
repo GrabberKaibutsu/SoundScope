@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom';
 
 
 const PlaylistDetails = () => {
-    //const [playlist, setPlaylist] = useState({ tracks: []});//added due to error retrieving details
+    const [playlist, setPlaylist] = useState({ tracks: []});//added due to error retrieving details
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const { id } = useParams(); // This retrieves the `id` from the URL
 
     useEffect(() => {
+        console.log(`Fetching data for playlist ID: ${id}`);
         fetch(`http://localhost:3001/api/playlists/${id}/tracks`)// added api and altered backend routes
             .then(response => {
                 if (!response.ok) {
@@ -19,7 +20,9 @@ const PlaylistDetails = () => {
                 return response.json();
             })
             .then(data => {
+                console.log('Data received:', data);
                 setTracks(data.items); // Assuming 'data.items' is the array of tracks
+                setPlaylist(data);
                 setLoading(false);
             })
             .catch(error => {
@@ -40,7 +43,7 @@ const PlaylistDetails = () => {
         return <div style={{ color: 'white' }}>No playlist data available</div>;
     }
     return (
-        <div className="playlist-details">
+        <div style={{ color: 'white' }}>
              <h1>Playlist Tracks</h1>
             <ul>
             {Array.isArray(tracks) && tracks.map(track => (       

@@ -57,7 +57,7 @@ const NavBar = () => {
       <div className="profile-section">
         {isAuthenticated ? (
           <>
-            <span className="mr-4">Welcome, {user.username}</span>
+            <span className="mr-4">Welcome, {user.username}!</span>
             <button onClick={handleLogout} className="hover:text-indigo-600">
               Logout
             </button>
