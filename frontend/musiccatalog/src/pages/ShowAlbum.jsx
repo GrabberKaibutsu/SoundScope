@@ -75,30 +75,6 @@ const ShowAlbum = ({user}) => {
       }
     }
 
-    // const handleSubmit = async (e) => {
-
-    //   e.preventDefault();
-
-    //   fetch(`http://localhost:3001/reviews/albums/${album?.id}/${user.id}/comments`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ content }), // Send the comment content in the request body
-    //     })
-    //     .then(response => {
-    //       if (!response.ok) {
-    //         throw new Error('Failed to add comment');
-    //       }
-    //       return response.json();
-    //     })
-    //     .then(data => {
-    //       console.log('Comment added successfully:', data);
-    //     })
-    //     .catch(error => {
-    //       console.error('Error adding comment:', error);
-    // });
-  //};
 
     return (
         <div className="">
@@ -132,21 +108,9 @@ const ShowAlbum = ({user}) => {
               </div>
             </div>
           </div>
-
           <br></br>
           <br></br>
 
-          {/* <form className="flex gap-2" onSubmit={handleSubmit}>
-            <label className="text-slate-50">Review: &nbsp;&nbsp;</label>
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Add your comment..."
-              required 
-              className="rounded w-3/4"
-              />
-            <input type="submit"      value="Submit" className="bg-lime-600 hover:bg-lime-500 p-2"/>
-          </form> */}
 
         </div>
     )
