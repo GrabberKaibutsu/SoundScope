@@ -114,15 +114,14 @@ router.get("/favorited/:userId/:albumId", validateJWT, async (req, res) => {
   try {
     const userId = req.params.userId;
     const albumId = req.params.albumId;
+    
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const isFavorited = user.favoriteAlbums.includes(albumId);
-    console.log(isFavorited)
+    const isFavorited = user.favoriteAlbums.includes(albumId); // Check if albumId is in the user's favoriteAlbums array
     res.json({ isFavorited: isFavorited });
-
 
   } catch (error) {
     console.error("Error checking favorite status:", error);
@@ -147,11 +146,11 @@ router.get("/:id", async (req, res)=> {
 
 // Route to toggle favorite status
 router.post('/favorited/:userId/:itemId', async (req, res)=> {
-  try{
-
+  try {
     const userId = req.params.userId;
-    const itemId = req.body.itemId;
+    const itemId = req.params.itemId;
 
+    console.log(userId)
 
     // Find the user by ID
     const user = await User.findById(userId);
@@ -159,14 +158,13 @@ router.post('/favorited/:userId/:itemId', async (req, res)=> {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if the song is already in favorites
-    // const index = user.favorites.indexOf(itemId);
-    // if (index !== -1) {
-      if (user.favorites && user.favorites.indexOf(itemId) !== -1) {
-      // Song is already favorited, so remove it
+    // Check if the item is already in favorites
+    const index = user.favoriteAlbums.indexOf(itemId);
+    if (index !== -1) {
+      // Item is already favorited, so remove it
       user.favoriteAlbums.splice(index, 1);
     } else {
-      // Song is not favorited, so add it
+      // Item is not favorited, so add it
       user.favoriteAlbums.push(itemId);
     }
 
