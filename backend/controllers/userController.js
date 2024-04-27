@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
-
+    
     res.json({
       message: "Logged in successfully",
       user: { id: user._id, username: user.username },
@@ -69,6 +69,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // Logout route
 router.post("/logout", (req, res) => {
