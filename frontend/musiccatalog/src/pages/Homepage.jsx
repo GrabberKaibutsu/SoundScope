@@ -30,7 +30,7 @@ const Homepage = () => {
       <br></br>
 
       <div>
-        <div className="flex gap-96">
+        <div className="flex gap-10 md:gap-96">
           <h1 className="text-slate-50 text-4xl">New Albums</h1>
           <Link to={`/albums`} className="text-slate-50 hover:text-indigo-600">
             View More Albums
@@ -45,7 +45,7 @@ const Homepage = () => {
       <br></br>
 
       <div>
-        <div className="flex gap-96">
+        <div className="flex gap-10 md:gap-96">
           <h1 className="text-slate-50 text-4xl">Top Songs</h1>
           <input
             type="button"
@@ -56,27 +56,6 @@ const Homepage = () => {
         <br></br>
         <Songs songs={topTracks} />
       </div>
-      {/* <ul>
-        {newAlbums &&
-          newAlbums.map((item, index) => {
-            return (
-              <li>
-                {item.name}
-                <br></br>
-                <img src={item.images[1].url} />
-              </li>
-            );
-          })}
-      </ul>
-
-      <h1>Top Songs</h1>
-
-      <ul>
-        {topTracks &&
-          topTracks.map((item, index) => {
-            return <li>{item.track.name}</li>;
-          })}
-          
     </div>
   );
 };
