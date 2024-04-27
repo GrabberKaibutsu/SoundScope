@@ -1,15 +1,9 @@
 // Require modules
 const express = require("express");
 const router = express.Router();
-// const fetch = require("node-fetch");
-const Album = require("../models/album");
 const User = require("../models/user");
 const validateJWT = require("./validateJWT");
 require('dotenv').config()
-
- //Require DB connection
- //const db = require("../models");
-
 
  const CLIENT_ID = process.env.CLIENT_ID
  const CLIENT_SECRET = process.env.CLIENT_SECRET

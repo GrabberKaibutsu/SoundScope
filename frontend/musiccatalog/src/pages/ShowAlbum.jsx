@@ -71,25 +71,35 @@ const ShowAlbum = ({user}) => {
 
     return (
         <div className="">
-          <div className="flex justify-center gap-28">
-            <h1 className="text-slate-50 text-4xl">{album?.name}</h1>
-
-            <button type="button" value="Favorite"
-            onClick={handleToggleFavorite} className={`text-slate-50 px-4 py-2 rounded ${favorited ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-600'}`}>
-              {favorited ? 'Unfavorite' : 'Favorite'}
-            </button>
-          </div>
+          <h1 className="text-slate-50 text-base md:text-2xl lg:text-4xl">{album?.name}</h1>
+          
+          <br></br>
 
           <Link to={`/artist/${album?.artists[0]?.id}`}> <p className="text-zinc-500 hover:text-indigo-600">{album?.artists[0]?.name}</p> </Link>
 
           <br></br>
 
-          <div className="flex gap-10">
-            <img src={album?.images[1]?.url} className="max-w-64 max-h-64" />
-            <br></br>
-            <br></br>
-            <br></br>
-            <Songs songs={album?.tracks.items} />
+          <div className="flex flex-col md:flex-row">
+            <div className="flex gap-10">
+              <div className="md:w-1/2 mb-4">
+                <img src={album?.images[1]?.url} className="w-full h-auto" />
+
+                <br></br>
+                <br></br>
+
+                <button type="button" value="Favorite"
+                onClick={handleToggleFavorite} className={`text-slate-50 px-4 py-2 rounded ${favorited ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-600'}`}>
+                  {favorited ? 'Unfavorite' : 'Favorite'}
+                </button>
+              </div>
+
+              <br></br>
+              <br></br>
+              <br></br>
+              <div className="md:w-1/2 md:pl-4">
+                <Songs songs={album?.tracks.items} />
+              </div>
+            </div>
           </div>
 
           <br></br>
@@ -100,8 +110,6 @@ const ShowAlbum = ({user}) => {
             <input type="text" placeholder="Write A Review about this Album" className="rounded w-3/4"/>
             <input type="button" value="Submit" className="bg-lime-600 hover:bg-lime-500 p-2"/>
           </div>
-
-
 
         </div>
     )
