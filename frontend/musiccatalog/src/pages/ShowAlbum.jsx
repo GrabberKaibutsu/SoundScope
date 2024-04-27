@@ -73,7 +73,6 @@ const ShowAlbum = ({user}) => {
       }
     }
 
-console.log(album)
     return (
         <div className="">
           <h1 className="text-slate-50 text-base md:text-2xl lg:text-4xl">{album?.name}</h1>
