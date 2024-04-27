@@ -24,6 +24,6 @@
     "method-override": "^3.0.0",
     "mongoose": "^8.3.1",
     "morgan": "^1.10.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.7.0"
   }
 }
