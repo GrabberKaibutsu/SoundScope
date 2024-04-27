@@ -26,9 +26,9 @@ dist-ssr
 
 
 
-Music-Catalog/frontend/musiccatalog/src/pages/SongsList.jsx
+/frontend/musiccatalog/src/pages/SongsList.jsx
 
-Music-Catalog/frontend/musiccatalog/src/pages/SingleSong.jsx
+/frontend/musiccatalog/src/pages/SingleSong.jsx
 
 
-Music-Catalog/frontend/musiccatalog/src/components/TrendingSongs.jsx
+/frontend/musiccatalog/src/components/TrendingSongs.jsx
