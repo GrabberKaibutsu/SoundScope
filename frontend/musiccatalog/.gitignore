@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+
+
+/frontend/musiccatalog/src/pages/SongsList.jsx
+
+/frontend/musiccatalog/src/pages/SingleSong.jsx
+
+
+/frontend/musiccatalog/src/components/TrendingSongs.jsx
