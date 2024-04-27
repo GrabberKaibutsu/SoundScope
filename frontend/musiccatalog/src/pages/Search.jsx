@@ -4,7 +4,7 @@ import Albums from "../components/HomeAlbums"
 import Songs from "../components/SearchedSongs"
 import Artists from "../components/SearchArtists"
 
-
+const host = import.meta.env.BACKENDURL
 const Search = () => {
 
     const { searchTerm } = useParams();
@@ -15,7 +15,7 @@ const Search = () => {
     let searchTermUrl = searchTermSplit.join("+")
 
     useEffect(() => {
-        fetch(`http://localhost:3001/search/${searchTermUrl}`)
+        fetch(`${host}/search/${searchTermUrl}`)
           .then((res) => {
             if (res.ok) {
               return res.json();

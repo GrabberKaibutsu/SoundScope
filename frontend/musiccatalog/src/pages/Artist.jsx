@@ -3,12 +3,13 @@ import Artists from "../components/Artists";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const host = import.meta.env.BACKENDURL
 const Artist = () => {
   const [artists, setArtists] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3001/artists/home`)
+    fetch(`${host}/artists/home`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
