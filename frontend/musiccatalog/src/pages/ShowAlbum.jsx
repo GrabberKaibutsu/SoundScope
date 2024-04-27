@@ -48,8 +48,6 @@ const ShowAlbum = ({user}) => {
 
   const handleToggleFavorite = async () => {
 
-    // const token = localStorage.getItem("token");
-
     try {
       setLoading(true);
 
@@ -57,7 +55,6 @@ const ShowAlbum = ({user}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${token}`,
         }
       })
       .then((res) => {
@@ -73,7 +70,7 @@ const ShowAlbum = ({user}) => {
   }
 
     return (
-        <div>
+        <div className="">
           <div className="flex justify-center gap-28">
             <h1 className="text-slate-50 text-4xl">{album?.name}</h1>
 
