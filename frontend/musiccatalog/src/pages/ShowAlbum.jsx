@@ -73,11 +73,11 @@ const ShowAlbum = ({user}) => {
       }
     }
 
-
+console.log(album)
     return (
         <div className="">
           <h1 className="text-slate-50 text-base md:text-2xl lg:text-4xl">{album?.name}</h1>
-          
+          <h3 className="text-slate-50 text-sm md:text-md lg:text-xl">Released: {album?.release_date}</h3>
           <br></br>
 
           <Link to={`/artist/${album?.artists[0]?.id}`}> <p className="text-zinc-500 hover:text-indigo-600">{album?.artists[0]?.name}</p> </Link>
@@ -106,8 +106,6 @@ const ShowAlbum = ({user}) => {
               </div>
             </div>
           </div>
-          <br></br>
-          <br></br>
 
 
         </div>

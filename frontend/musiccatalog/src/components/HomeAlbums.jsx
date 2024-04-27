@@ -29,7 +29,6 @@ import { Link } from "react-router-dom";
 
 const HomeAlbum = ({ albums }) => {
 
-    console.log(albums)
   return (
     <div className="text-slate-50">
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 justify-items-center">
