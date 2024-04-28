@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Songs from "../components/AlbumSongs"
 
+const host = import.meta.env.BACKENDURL
 const ShowAlbum = ({user}) => {
 
     const { id } = useParams();
     const [album, setalbum] = useState(null);
     const [favorited, setFavorited] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [content, setContent] = useState('');
 
     useEffect(() => {
-        fetch(`http://localhost:3001/albums/${id}`)
+        fetch(`${host}/albums/${id}`)
           .then((res) => {
             if (res.ok) {
               return res.json();
@@ -31,7 +30,7 @@ const ShowAlbum = ({user}) => {
             return;
           }
 
-          const response = await fetch(`http://localhost:3001/albums/favorited/${user.id}/${album?.id}`, {
+          const response = await fetch(`${host}/albums/favorited/${user.id}/${album?.id}`, {
           headers: {
           'Authorization': `Bearer ${token}`,
           },
@@ -55,7 +54,7 @@ const ShowAlbum = ({user}) => {
       try {
         setLoading(true);
     
-        const response = await fetch(`http://localhost:3001/albums/favorited/${user.id}/${album?.id}`, {
+        const response = await fetch(`${host}/albums/favorited/${user.id}/${album?.id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,11 +74,10 @@ const ShowAlbum = ({user}) => {
       }
     }
 
-
     return (
         <div className="">
           <h1 className="text-slate-50 text-base md:text-2xl lg:text-4xl">{album?.name}</h1>
-          
+          <h3 className="text-slate-50 text-sm md:text-md lg:text-xl">Released: {album?.release_date}</h3>
           <br></br>
 
           <Link to={`/artist/${album?.artists[0]?.id}`}> <p className="text-zinc-500 hover:text-indigo-600">{album?.artists[0]?.name}</p> </Link>
@@ -108,8 +106,6 @@ const ShowAlbum = ({user}) => {
               </div>
             </div>
           </div>
-          <br></br>
-          <br></br>
 
 
         </div>

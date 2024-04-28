@@ -40,6 +40,7 @@ const NavBar = () => {
           Search
         </button>
       </div>
+
       <div className="nav-links">
         <Link to={"/artists"} className="hover:text-indigo-600">
           Artists
@@ -51,6 +52,7 @@ const NavBar = () => {
           Playlists
         </Link>
       </div>
+
       <div className="profile-section">
         {isAuthenticated ? (
           <>

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import NavBar from "./components/NavBar";
+import Footer from "./components/Footer"
 import "./NavBar.css";
 import Search from "./pages/Search";
 
@@ -14,11 +15,7 @@ import Artist from "./pages/Artist";
 import SingleArtist from "./components/SingleArtist";
 import FeaturedPlaylists from './pages/FeaturedPlaylists';
 import PlaylistDetails from './pages/PlaylistDetails';
-// import Genre from "./pages/Genre"
-// import ShowGenre from"./pages/ShowGenre"
-// import SongsList from './pages/SongsList';
-// import SingleSong from './pages/SingleSong';
-// import TrendingSongs from './components/TrendingSongs';
+
 function App() {
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
@@ -40,6 +37,8 @@ function App() {
         <Route path="/featured-playlists" element={<FeaturedPlaylists />} />
         <Route path="/playlists/:id" element={<PlaylistDetails />} />
       </Routes>
+      <br></br>
+      <Footer />
     </>
   );
 }
