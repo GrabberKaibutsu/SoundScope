@@ -20,11 +20,13 @@ const ViewAlbums = () => {
 
   return (
     <div>
-        <h1 className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 justify-items-center text-slate-50 text-4xl">New Albums</h1>
+        <h1 className="text-slate-50 text-4xl">New Albums</h1>
         <br></br>
 
-        {/* albums components that will show the list of the top 20 new-released albums */}
-        <Albums albums={albums} />
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center">
+            {/* Albums component that will show the list of the top 20 new-released albums */}
+            <Albums albums={albums} />
+        </div>
     </div>
   )
 }
