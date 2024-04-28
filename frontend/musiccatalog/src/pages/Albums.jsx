@@ -22,9 +22,9 @@ const ViewAlbums = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-slate-50 text-4xl text-center mb-6">New Albums</h1>
   
-          <div className=" md:grid-cols-1 lg:grid-cols-1 gap-4 justify-items-center">
+          <div className="grid grid-cols-1 gap-4 justify-items-center">
               {/* Albums component that will show the list of the top 20 new-released albums */}
-              <Albums className="grid grid-cols-2 sm:grid-cols-1" albums={albums} />
+              <Albums albums={albums} />
           </div>
       </div>
     )
