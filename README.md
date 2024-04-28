@@ -44,17 +44,37 @@ morgan: 1.10.0.
 ## Installation Instructions 
 
 
-Launch app (not here yet) [Here.]()
+Launch app [Here.]()
 
 <br>
 
 ## Wireframes 
 
 
-[Click here]() to view wireframes.
+[Click here](https://www.figma.com/file/i3qVIoERIfFSCiCDOgbZbh/Project-3?type=design&node-id=0-1&mode=design&t=cr1AMnI2HZMdpIt1-0) to view wireframes.
+
 
 <br>
 
 ## ERD
 
-## 
+
+[Click here](https://lucid.app/lucidchart/0fc951b5-7adc-468d-8de7-c9fcaa644fd8/edit?viewport_loc=-11%2C-11%2C2219%2C1031%2C0_0&invitationId=inv_1d3cc7b6-080e-4399-8019-a168c560d9c7) to view ERD.
+
+
+<br>
+
+
+## Route Table
+
+[Click here](https://docs.google.com/document/d/1G2OnfTnkUVQZvJ9-NFYCeB3vVTyZyWxpbfhXIe-NXpo/edit?usp=sharing) to view Route Table.
+
+
+<br>
+
+## Trello
+
+[Click here](https://trello.com/b/6AuD3Oa7/project3-board) to view Trello Board.
+
+
+<br>
