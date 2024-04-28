@@ -1,6 +1,6 @@
 # SoundScope
 
-An inventory management app for personal or professtional use. Can track the name, count, and if it needs to be ordered or restocked.
+A music based social media application for keeping up with new relases and trending songs albums, and artists. Uses the Spotify API
 
 ## Technologies Used
 
@@ -12,29 +12,36 @@ An inventory management app for personal or professtional use. Can track the nam
 5. Visual Studio Code.
 6. ChatGPT (for private sessions)
 7. Dependencies
+8. Spotify API
+9. Vite
+10. React
 <details>
   <summary>see npm dependencies</summary>
 
 
-bcrypt: 5.1.1,
-  
-connect-livereload: 0.6.1,
+  bcryptjs: 2.4.3
 
-dotenv: 16.4.5,
+  connect-livereload: 0.6.1
 
-ejs: 3.1.9,
+  cors: 2.8.5
 
-express: 4.18.3,
+  dotenv: 16.4.5
 
-express-session: 1.18.0,
+  express: 4.19.2
 
-livereload: 0.9.3,
+  express-router: 0.0.1
 
-method-override: 3.0.0,
+  jsonwebtoken: 9.0.2
 
-mongoose: 8.2.1,
+  livereload": 0.9.3
 
-morgan: 1.10.0.
+  method-override: 3.0.0
+
+  mongoose: 8.3.1
+
+  morgan: 1.10.0
+
+  node-fetch: 2.7.0
 
 
 </details>
@@ -44,7 +51,7 @@ morgan: 1.10.0.
 ## Installation Instructions 
 
 
-Launch app [Here.]()
+Launch app [Here.](https://soundscope.netlify.app)
 
 <br>
 
@@ -67,6 +74,7 @@ Launch app [Here.]()
 
 ## Route Table
 
+
 [Click here](https://docs.google.com/document/d/1G2OnfTnkUVQZvJ9-NFYCeB3vVTyZyWxpbfhXIe-NXpo/edit?usp=sharing) to view Route Table.
 
 
@@ -74,7 +82,17 @@ Launch app [Here.]()
 
 ## Trello
 
+
 [Click here](https://trello.com/b/6AuD3Oa7/project3-board) to view Trello Board.
+
+
+<br>
+
+## Backend 
+
+
+[Click here](https://github.com/GrabberKaibutsu/soundscapeback) to view Backend Repo.
+[Click here](https://dashboard.heroku.com/apps/sound-scape-back) to view Backend Heroku.
 
 
 <br>
