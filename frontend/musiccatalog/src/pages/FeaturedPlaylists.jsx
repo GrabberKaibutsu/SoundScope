@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+const host = import.meta.env.VITE_BACKENDURL
 const FeaturedPlaylists = ({ }) => {
     const [playlists, setPlaylists] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/featured-playlists')//added api
+        fetch(`${host}/api/featured-playlists`)//added api
             .then(response => response.json())
             .then(data => setPlaylists(data))
             .catch(error => console.error('Error fetching playlists:', error));
     }, []);
-
 
 return (
     <div className="px-10 py-5">

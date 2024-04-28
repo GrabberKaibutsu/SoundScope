@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+const host = import.meta.env.VITE_BACKENDURL
 const Login = (props) => {
   const [formData, setFormData] = useState({
     email: "",
@@ -15,7 +16,7 @@ const Login = (props) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3001/users/login", {
+      const response = await fetch(`${host}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

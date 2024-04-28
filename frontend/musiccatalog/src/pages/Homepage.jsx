@@ -5,13 +5,14 @@ import Albums from "../components/HomeAlbums";
 import Songs from "../components/HomeSongs";
 import { Link } from "react-router-dom";
 
+const host = import.meta.env.VITE_BACKENDURL
 const Homepage = () => {
   const [homeData, setHomeData] = useState([]);
   const [error, setError] = useState(null);
 
   // gets the list of top 5 artists, albums and tracks to display on the home page
   useEffect(() => {
-    fetch("http://localhost:3001/home")
+    fetch(`${host}/home`)
       .then((res) => res.json())
       .then((jsonRes) => setHomeData(jsonRes))
       .catch((error) => {
