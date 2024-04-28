@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Albums from "../components/Album"
 
 const host = import.meta.env.VITE_BACKENDURL
@@ -25,14 +24,10 @@ const ViewAlbums = () => {
   
           <div className="grid grid-cols-1 gap-4 justify-items-center">
               {/* Albums component that will show the list of the top 20 new-released albums */}
-              {albums.map((album) => (
-                    <Link to={`/artist/${album?.artists[0]?.id}`}> <p className="text-zinc-500 hover:text-indigo-600">{album?.artists[0]?.name}</p>
-                        <Albums albums={[album]} />
-                    </Link>
-                ))}
-            </div>
-        </div>
-    );
-};
+              <Albums albums={albums} />
+          </div>
+      </div>
+    )
+  }
   
   export default ViewAlbums
